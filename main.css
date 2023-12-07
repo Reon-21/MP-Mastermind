@@ -1,0 +1,117 @@
+html{
+    font-size: 1rem;
+    font-family: sans-serif;
+}
+
+body{
+    background: #f2f6d0;
+    position: relative;
+}
+
+.container-guesses,
+.container-options{
+    background-color: #ba8c63;
+    width: 33.3%;
+    position: relative;
+    margin: auto;
+    
+}
+
+html,body{
+    height: 100%;
+}
+
+h1{
+    display: inline-block;
+    margin-right: 20px;
+    font-size: 2em;
+}
+
+header{
+    display: block;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    text-align: center;
+}
+/*Guesses*/
+
+#guesses {
+    display: inline-block;
+    background-color: #E3DCB5;
+    border-radius: 3px 0 0 3px;
+    padding: 15px 30px;
+    font-size: 0;
+  }
+  
+  .guess-row { margin-top: 15px; }
+  
+  .option,
+  .answer .socket,
+  .guess-row .socket {
+    width: 40px;
+    height: 40px;
+    vertical-align: middle;
+  }
+  
+  .answer .socket + .socket,
+  .guess-row .socket + .socket { margin-left: 10px; }
+  
+  .answer {
+    border-bottom: 2px solid #c7bf8d;
+    padding-bottom: 15px;
+  }
+  
+  .hidden {
+    color: #e3dcb5;
+    text-align: center;
+    line-height: 40px;
+    font-weight: 800;
+    font-size: 16px;
+  }
+  
+  .socket.peg {
+    -webkit-animation: bounceIn .4s;
+    -o-animation: bounceIn .4s;
+    animation: bounceIn .4s;
+  }
+
+  .option,
+.peg-socket, .socket {
+  display: inline-block;
+  border-radius: 50%;
+  background-color: #C7BF8D;
+}
+
+
+/*Pegs*/
+#pegs {
+    vertical-align: bottom;
+    display: inline-block;
+    padding: 15px 20px;
+    background-color: #E3DCB5;
+    border-radius: 0 3px 3px 0;
+    font-size: 0;
+  }
+  
+  .peg {
+    height: 40px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+  }
+  
+  .peg .row { height: 10px; }
+  .peg .row + .row { margin-top: 5px; }
+  
+  .peg .peg-socket {
+    width: 10px;
+    height: 10px;
+  }
+  
+  .peg .peg-socket + .peg-socket { margin-left: 5px; }
+  
+  .peg + .peg { margin-top: 15px; }
+  .hit { background-color: #000; }
+  .almost { background-color: #fff; }
+
+

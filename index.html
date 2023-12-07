@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<head>
+    <title>JS Mastermind Game</title>
+    <link rel="stylesheet" href="main.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="main.js"></script>
+</head>
+
+<body>
+    <header>
+        <h1>Mastermind Game</h1>
+        <button id="restartGame">Restart</button>
+    </header>
+    <div class="container-guesses">
+        <div id="guesses">
+            <div class="answer">
+                <div class="hidden-socket">?</div>
+                <div class="hidden-socket">?</div>
+                <div class="hidden-socket">?</div>
+                <div class="hidden-socket">?</div>
+            </div>
+            <div class="guess-row">
+                <div class="socket"></div>
+                <div class="socket"></div>
+                <div class="socket"></div>
+                <div class="socket"></div>
+            </div>
+            <div class="guess-row">
+                <div class="socket"></div>
+                <div class="socket"></div>
+                <div class="socket"></div>
+                <div class="socket"></div>
+            </div>
+            <div class="guess-row">
+                <div class="socket"></div>
+                <div class="socket"></div>
+                <div class="socket"></div>
+                <div class="socket"></div>
+            </div>
+            <div class="guess-row">
+                <div class="socket"></div>
+                <div class="socket"></div>
+                <div class="socket"></div>
+                <div class="socket"></div>
+            </div>
+            <div class="guess-row">
+                <div class="socket"></div>
+                <div class="socket"></div>
+                <div class="socket"></div>
+                <div class="socket"></div>
+            </div>
+            <div class="guess-row">
+                <div class="socket"></div>
+                <div class="socket"></div>
+                <div class="socket"></div>
+                <div class="socket"></div>
+            </div>
+            <div class="guess-row">
+                <div class="socket"></div>
+                <div class="socket"></div>
+                <div class="socket"></div>
+                <div class="socket"></div>
+            </div>
+            <div class="guess-row">
+                <div class="socket"></div>
+                <div class="socket"></div>
+                <div class="socket"></div>
+                <div class="socket"></div>
+            </div>
+            <div class="guess-row">
+                <div class="socket"></div>
+                <div class="socket"></div>
+                <div class="socket"></div>
+                <div class="socket"></div>
+            </div>
+            <div class="guess-row">
+                <div class="socket"></div>
+                <div class="socket"></div>
+                <div class="socket"></div>
+                <div class="socket"></div>
+            </div>
+        </div>
+        <div id="pegs">
+            <div class="peg">
+                <div class="row">
+                    <div class="peg-socket"></div>
+                    <div class="peg-socket"></div>
+                </div>
+                <div class="row">
+                    <div class="peg-socket"></div>
+                    <div class="peg-socket"></div>
+                </div>
+            </div>
+            <div class="peg">
+                <div class="row">
+                    <div class="peg-socket"></div>
+                    <div class="peg-socket"></div>
+                </div>
+                <div class="row">
+                    <div class="peg-socket"></div>
+                    <div class="peg-socket"></div>
+                </div>
+            </div>
+            <div class="peg">
+                <div class="row">
+                    <div class="peg-socket"></div>
+                    <div class="peg-socket"></div>
+                </div>
+                <div class="row">
+                    <div class="peg-socket"></div>
+                    <div class="peg-socket"></div>
+                </div>
+            </div>
+            <div class="peg">
+                <div class="row">
+                    <div class="peg-socket"></div>
+                    <div class="peg-socket"></div>
+                </div>
+                <div class="row">
+                    <div class="peg-socket"></div>
+                    <div class="peg-socket"></div>
+                </div>
+            </div>
+            <div class="peg">
+                <div class="row">
+                    <div class="peg-socket"></div>
+                    <div class="peg-socket"></div>
+                </div>
+                <div class="row">
+                    <div class="peg-socket"></div>
+                    <div class="peg-socket"></div>
+                </div>
+            </div>
+            <div class="peg">
+                <div class="row">
+                    <div class="peg-socket"></div>
+                    <div class="peg-socket"></div>
+                </div>
+                <div class="row">
+                    <div class="peg-socket"></div>
+                    <div class="peg-socket"></div>
+                </div>
+            </div>
+            <div class="peg">
+                <div class="row">
+                    <div class="peg-socket"></div>
+                    <div class="peg-socket"></div>
+                </div>
+                <div class="row">
+                    <div class="peg-socket"></div>
+                    <div class="peg-socket"></div>
+                </div>
+            </div>
+            <div class="peg">
+                <div class="row">
+                    <div class="peg-socket"></div>
+                    <div class="peg-socket"></div>
+                </div>
+                <div class="row">
+                    <div class="peg-socket"></div>
+                    <div class="peg-socket"></div>
+                </div>
+            </div>
+            <div class="peg">
+                <div class="row">
+                    <div class="peg-socket"></div>
+                    <div class="peg-socket"></div>
+                </div>
+                <div class="row">
+                    <div class="peg-socket"></div>
+                    <div class="peg-socket"></div>
+                </div>
+            </div>
+            <div class="peg">
+                <div class="row">
+                    <div class="peg-socket"></div>
+                    <div class="peg-socket"></div>
+                </div>
+                <div class="row">
+                    <div class="peg-socket"></div>
+                    <div class="peg-socket"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="options" class="container-options">
+        <button value="1" id="orange"></button>
+        <button value="2" id="purple"></button>
+        <button value="3" id="red"></button>
+        <button value="4" id="blue"></button>
+        <button value="5" id="green"></button>
+        <button value="6" id="yellow"></button>
+        <button id="delete">Left arrow point icon (delete)</button>
+    </div>
+    
+    <div id="instructions">
+        <h3>How to play</h3>
+        <p>Goal: Guess the hidden pattern, in both order and color</p>
+        <p>Insert your guess into the empty sockets</p>
+        <p>Hints are provided on the right side in black and white pegs</p>
+        <p>Black pegs corresponds to one peg form your guess is both right color and right position</p>
+        <p>White pegs corresponds to one peg form your guess is the right color but wrong position</p>
+        <p>The position of black and white pegs does not correspond to the position of the guess</p>
+    </div>
+
+    
+
+    <!-- <div id="modalOverlay">
+        <div id="modalMessage">
+            <button>OK</button>
+            <button id="restartGame">Restart</button>
+        </div>
+    </div> -->
+
+    <div class="tevin-container"></div>
+</body>
