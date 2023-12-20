@@ -39,7 +39,9 @@ h1 {
 header {
   display: block;
   padding-bottom: 2px;
-  margin-left: 185px;
+  margin-left: 210px;
+  margin-bottom: 5px;
+  align-items: center;
 }
 
 .container {
@@ -64,7 +66,7 @@ header {
 #guesses {
   display: inline-block;
   background-image: url(https://media.istockphoto.com/id/484096068/photo/wooden-texture-background.webp?b=1&s=170667a&w=0&k=20&c=RWLEm-1NkqPzEgrX0zRid7WHtclBQBmI4RQZlouc02g=);
-  border-radius: 20px 20px 0px 0px;
+  border-radius: 20px 0px 0px 0px;
   padding: 15px 40px;
   font-size: 0;
   box-shadow: 8px 13px 5px gray;
@@ -73,14 +75,14 @@ header {
 .guess { margin-top: 15px; }
 
 .option,
-.answer .socket,
+.code .socket,
 .guess .socket {
   width: 40px;
   height: 40px;
   vertical-align: middle;
 }
 
-.answer .socket,
+.code .socket,
 .guess .socket{ margin-left: 10px; }
 
 .answer {
@@ -97,6 +99,10 @@ header {
   box-shadow: 3px 3px 5px black inset;
 }
 
+.js-hint-socket{
+  box-shadow: 2px 2px 2px black inset;
+}
+
 
 .socket.peg {
   -webkit-animation: bounceIn .4s;
@@ -108,7 +114,7 @@ header {
 #pegs {
   vertical-align: bottom;
   display: inline-block;
-  padding: 15px 20px;
+  padding: 34.8px 20px;
   background-image: url(https://media.istockphoto.com/id/484096068/photo/wooden-texture-background.webp?b=1&s=170667a&w=0&k=20&c=RWLEm-1NkqPzEgrX0zRid7WHtclBQBmI4RQZlouc02g=);
   border-radius: 0px 20px 0px 0px;
   font-size: 0;
@@ -121,6 +127,7 @@ header {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
+  padding-top: 20px;
 }
 
 .peg .row { height: 10px; }
@@ -137,10 +144,13 @@ header {
   margin-top: 5.5px
 }
 
-.peg + .peg { margin-top: 15px; }
-.hit { background-color: #000; }
-.almost { background-color: #fff; }
+.peg{ margin-top: 15px; }
+.hit { background: radial-gradient(circle at 4px 2px, #7e7e7e, #000);; 
+  box-shadow: none;}
+.almost { background: radial-gradient(circle at 4px 2px, #fff, #000);; 
+box-shadow: none;}
 
+/*-----Buttons-----*/
 #options {
   margin-left: 258px;
   padding-top: 10px;
@@ -169,7 +179,7 @@ button {
   background-image: url(https://media.istockphoto.com/id/484096068/photo/wooden-texture-background.webp?b=1&s=170667a&w=0&k=20&c=RWLEm-1NkqPzEgrX0zRid7WHtclBQBmI4RQZlouc02g=);
   vertical-align: middle;
   cursor: pointer;
-  box-shadow: 0 3px #999;
+  box-shadow: 0 2px gray;
 }
 
 .button:active {  
@@ -193,6 +203,7 @@ button {
   transform: translateY(4px);
 }
 
+/*-----Options color-----*/
 .red {
   background: black;
   border-radius: 50%;
@@ -200,6 +211,7 @@ button {
   width: 40px;
   margin: 0;
   background: radial-gradient(circle at 13px 18px, #fe4a49, #000);
+  box-shadow: none;
 }
 .green {background: black;
   border-radius: 50%;
@@ -207,6 +219,7 @@ button {
   width: 40px;
   margin: 0;
   background: radial-gradient(circle at 13px 18px, #6a994e, #000);
+  box-shadow: none;
 }
 
 .blue {background: black;
@@ -215,6 +228,7 @@ button {
   width: 40px;
   margin: 0;
   background: radial-gradient(circle at 13px 18px, #3a86ff, #000);
+  box-shadow: none;
 }
 
 .yellow {background: black;
@@ -223,6 +237,7 @@ button {
   width: 40px;
   margin: 0;
   background: radial-gradient(circle at 13px 18px, #ffb30b, #000);
+  box-shadow: none;
 }
 
 .orange{background: black;
@@ -231,6 +246,7 @@ button {
   width: 40px;
   margin: 0;
   background: radial-gradient(circle at 13px 18px, #fb5607, #000);
+  box-shadow: none;
 }
 
 .purple{background: black;
@@ -239,9 +255,10 @@ button {
   width: 40px;
   margin: 0;
   background: radial-gradient(circle at 13px 18px, #8338ec, #000);
+  box-shadow: none;
 }
 
-/* Style the button that is used to open and close the collapsible content */
+/*-----collapsible-----*/
 .collapsible {
   border: none;
   border-radius: 5px;
@@ -259,19 +276,82 @@ button {
   transform: translateY(4px);
 }
 
-/* Add a background color to the button if it is clicked on (add the .active class with JS), and when you move the mouse over it (hover) */
+
 .active, .collapsible:hover {
   background-color: #ccc;
 }
 
-/* Style the collapsible content. Note: hidden by default */
+
 .content {
-  padding: 0 18px;
+  padding: 0 40px;
+  text-align: center;
   display: none;
   overflow: hidden;
+  margin-left: -210px;
   background-color: #f1f1f1;
 }
 
 .option{
   box-shadow: none;
 }
+
+/*-----modal popup-----*/
+#modalMessage {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  width: 50%;
+  max-width: 630px;
+  min-width: 320px;
+  height: auto;
+  z-index: 2000;
+  opacity: 1;
+  border-radius: 2px;
+  padding: 15px 20px;
+  text-align: center;
+  -webkit-backface-visibility: hidden;
+  -moz-backface-visibility: hidden;
+  backface-visibility: hidden;
+  -webkit-transform: translateX(-50%) translateY(-50%);
+  -moz-transform: translateX(-50%) translateY(-50%);
+  -ms-transform: translateX(-50%) translateY(-50%);
+  transform: translateX(-50%) translateY(-50%);
+}
+
+#modalOverlay {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  visibility: hidden;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  opacity: 0;
+  transition: all .3s ease;
+}
+
+#modalOverlay.hidden {
+  visibility: hidden;
+}
+
+#modalOverlay.won {
+  background-color: rgba(143, 190, 0, .5);
+  visibility: visible;
+  opacity: 1;
+}
+
+#modalOverlay.won #modalMessage {
+  background-color: #8FBE00;
+  border: 5px solid #fff;
+}
+
+#modalOverlay.lost {
+  background-color: rgba(226, 45, 45, .5);
+  visibility: visible;
+  opacity: 1;
+}
+
+#modalOverlay.lost #modalMessage {
+  background-color: #E22D2D;
+  border: 5px solid #fff;
+} 

@@ -11,20 +11,20 @@
         <header>
             <button class="button" id="restartGame">Restart</button>
             <h1>Mastermind Game</h1>
-            <button type="button" class="collapsible">Open Rules</button>
+            <button type="button" class="collapsible">Rules</button>
         <div id="instructions" class="content">
             <h3>How to play</h3>
             <p>Goal: Guess the hidden pattern, in both order and color</p>
-            <p>Insert your guess into the empty sockets</p>
-            <p>Hints are provided on the right side in black and white pegs</p>
-            <p>Black pegs corresponds to one peg form your guess is both right color and right position</p>
-            <p>White pegs corresponds to one peg form your guess is the right color but wrong position</p>
-            <p>The position of black and white pegs does not correspond to the position of the guess</p>
+            <p>1.Insert your guess into the empty sockets</p>
+            <p>2.Hints are provided on the right side in black and white pegs</p>
+            <p>3.Black pegs corresponds to one peg from your guess is both right color AND right position</p>
+            <p>4.White pegs corresponds to one peg from your guess is the right color BUT wrong position</p>
+            <p>5.The position of black and white pegs does not correspond to the position of the guess</p>
         </div>
         </header>
         <div class="container">
             <div id="guesses">
-                <div class="answer">
+                <div class="code row">
                     <div class="hidden socket">?</div>
                     <div class="hidden socket">?</div>
                     <div class="hidden socket">?</div>
@@ -204,14 +204,14 @@
             <button id="delete" class="">&#8592;</button>
         </div>
 
-        <!-- <div id="modalOverlay">
+        <div id="modalOverlay">
             <div id="modalMessage">
-                <button>OK</button>
-                <button id="restartGame">Restart</button>
+                <button class="large">OK</button>
+                <button class="large">Restart</button>
             </div>
-        </div> -->
+        </div>
     
-        <div class="tevin-container"></div>
+        
     </div> 
 
     <script src="main.js"></script>
