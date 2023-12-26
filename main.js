@@ -65,65 +65,74 @@
   }
 
   // Function to compare the player's guess with the generated secret code
-  function compare () {
-    // To track if the guess matches with the secret code
-    var isMatch = true;
-
-    // To create a copy of the secret code to track the matched pegs
-    var codeCopy = code.slice(0);
-
-    // First check if there are any pegs that are the right color in the right place
-    for (var i = 0; i < code.length; i++) {
-      // If peg is the right color and right place it will insert a 'hit' peg in the hint rows
-      if (guess[i] === code[i]) {
+  function compare() {
+    // Initialize a flag to track if the entire guess matches the secret code
+    let isMatch = true;
+  
+    // Create a shallow copy of the 'code' array using the spread syntax ('...').
+    // This copy will be used for tracking matched pegs without modifying the original 'code' array.
+    const codeCopy = [...code];
+  
+    // Iterate through each position in the guess
+    for (let i = 0; i < code.length; i++) {
+      // Get the current peg value in the guess
+      const currentGuess = guess[i];
+  
+      // Check if the current peg in the guess is in the correct position and has the correct color
+      if (currentGuess === code[i]) {
+        // If so, insert a 'hit' peg and update arrays accordingly
         insertPeg('hit');
-
-        // To mark the corresponding positions in the codeCopy and guess arrays
-        codeCopy[i] = 0;
-        guess[i] = -1;
-      } else
-        // If any peg is not in the right place, set isMatch as false.
+        codeCopy[i] = 0;  // Mark the corresponding position in the codeCopy as matched
+        guess[i] = -1;    // Mark the corresponding position in the guess as used
+      } else {
+        // If not, set the isMatch flag to false
         isMatch = false;
-    }
-
-    // Then check if there are any pegs that are the right color but NOT in the right place
-    for (var y = 0; y < code.length; y++) {
-      if (codeCopy.indexOf(guess[y]) !== -1) {
-        // If peg is the right color but in the wrong place, insert an 'almost' in the hint rows
-        insertPeg('almost');
-
-        //mark the corresponding position in the codeCopy array
-        codeCopy[codeCopy.indexOf(guess[y])] = 0;
       }
     }
-
-    hintIncrement += 1; // Set the next row of hints as available
-    guess = [];         // Reset guess sequence
-    
-    // Return whether the guess matches with the secret code
+  
+    // Iterate through the guess again to check for pegs with correct color but in the wrong position
+    for (let i = 0; i < code.length; i++) {
+      const currentGuess = guess[i];
+  
+      // Find the index of the current guess in the codeCopy array
+      const matchingIndex = codeCopy.indexOf(currentGuess);
+  
+      // Check if the peg with correct color but in the wrong position is found
+      if (matchingIndex !== -1) {
+        // If so, insert an 'almost' peg and mark the corresponding position in codeCopy as matched
+        insertPeg('almost');
+        codeCopy[matchingIndex] = 0;
+      }
+    }
+  
+    // Increment the row for hints, reset the guess array, and return the result of the comparison
+    hintIncrement += 1;
+    guess = [];
     return isMatch;
   }
+  
 
   // Function to insert peg of a specified type ('almost' or 'hit') into the hint container
-  function insertPeg (type) {
-
+  function insertPeg(type) {
     // Get the hint row sockets
-    var sockets = pegContainer[pegContainer.length - hintIncrement].getElementsByClassName('js-hint-socket');
-
+    const hintRow = pegContainer[pegContainer.length - hintIncrement];
+    const sockets = hintRow.getElementsByClassName('js-hint-socket');
+  
     // Set the class name of the socket in the hint row based on the peg type ('almost' or 'hit')
-    sockets[0].className = 'socket ' + type;
+    sockets[0].className = `socket ${type}`;
   }
 
   // Function to delete the last peg in the current guess
-  function deleteLast () {
+  function deleteLast() {
     // Check if there are any pegs to delete in the current guess
     if (guess.length !== 0) {
       // Get the slots in the current input row
-      var slots = inputRows[inputRows.length - rowIncrement].getElementsByClassName('socket');
-
+      const currentRow = inputRows[inputRows.length - rowIncrement];
+      const slots = currentRow.getElementsByClassName('socket');
+  
       // Remove the last peg from the current input row
-      slots[guess.length - 1].className = 'socket'; // Insert node into page
-
+      slots[guess.length - 1].className = 'socket';
+  
       // Remove the last peg in the guess array
       guess.pop();
     }
@@ -147,36 +156,36 @@
   }
 
   // Function to clear the game board
-  function clearBoard () {
+  function clearBoard() {
     // Clear the guess sockets
-    for (var i = 0; i < inputRows.length; i++) {
+    Array.from(inputRows).forEach(row => {
       // Remove all pegs from the current input rows
-      inputRows[i].innerHTML = '';
+      row.innerHTML = '';
       // Add 4 empty sockets to the input rows for the next set of guesses
-      for (var y = 0; y < 4; y++) {
-        var socket = document.createElement('div');
+      Array.from({ length: 4 }, (_, index) => {
+        const socket = document.createElement('div');
         socket.className = 'socket';
-        inputRows[i].appendChild(socket);
-      }
-    }
-
+        row.appendChild(socket);
+      });
+    });
+  
     // Clear the hint sockets
-    for (var i = 0; i < pegContainer.length; i++) {
+    Array.from(pegContainer).forEach(container => {
       // Resets all the class names of the hint sockets in each row
-      var socketCollection = pegContainer[i].getElementsByClassName('socket');
-      for (var y = 0; y < 4; y++) {
-        socketCollection[y].className = 'js-hint-socket socket';
-      }
-    }
-
+      const socketCollection = container.getElementsByClassName('socket');
+      Array.from(socketCollection).forEach(socket => {
+        socket.className = 'js-hint-socket socket';
+      });
+    });
+  
     // Reset secret code sockets
-    for (var i = 0; i < hiddenSockets.length; i++) {
+    Array.from(hiddenSockets).forEach(socket => {
       // Hide and reset class names and content of the secret code
-      hiddenSockets[i].className = 'hidden socket';
-      hiddenSockets[i].innerHTML = '?';
-    }
-
-    document.getElementsByTagName('body')[0].className = ''; // Reset background
+      socket.className = 'hidden socket';
+      socket.innerHTML = '?';
+    });
+  
+    document.body.className = ''; // Reset background
   }
 
   // Creates a color sequence that the player needs to guess
