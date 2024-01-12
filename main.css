@@ -195,14 +195,14 @@ box-shadow: none;}
   transform: translateY(4px);
 }
 
-.red {
-  background: black;
+.red {background: black;
   border-radius: 50%;
   height: 40px;
   width: 40px;
   margin: 0;
   background: radial-gradient(circle at 13px 18px, #fe4a49, #000);
 }
+
 .green {background: black;
   border-radius: 50%;
   height: 40px;
@@ -311,6 +311,23 @@ box-shadow: none;}
 .lost {
   background-color: #fff8dc;
 }
+
+.analyticsBoardGuess_colour {
+  display: inline-block;
+  margin-right: 20px;
+  width: 60px;
+  height: 60px;
+}
+
+.analyticsBoardGuess_peg{
+  border-style: solid;
+  height: 70px;
+  width: 70px;
+  margin: 0;
+  display: inline-block;
+}
+
+
 /* 
 
 

@@ -1,0 +1,23 @@
+{
+  "name": "mp-mastermind",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Reon-21/MP-Mastermind.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Reon-21/MP-Mastermind/issues"
+  },
+  "homepage": "https://github.com/Reon-21/MP-Mastermind#readme",
+  "dependencies": {
+    "plotly": "^1.0.6",
+    "plotly.js-dist": "^2.28.0"
+  }
+}

@@ -9,6 +9,16 @@
         hiddenSockets = document.getElementsByClassName('hidden socket'), //The sequence player has to guess
         modalOverlay = document.getElementById('modalOverlay'),
         modalMessage = document.getElementById('modalMessage'),
+        // used in analytics part
+        analyticsBoardRadar = document.getElementById('analyticsBoardRadar'),
+        analyticsBoardGuess = document.getElementById('analyticsBoardGuess'),
+        analyticsNavRadar = document.getElementById("analyticsNavRadar"),
+        analyticsNavGuess = document.getElementById("analyticsNavGuess"),
+
+        analytics_peg_orange = document.getElementsByClassName("analytics_peg_orange"),
+        // stores data of user guesses and peg results
+        analytics_data = {"guesses":[],"results":[]},
+
         rowIncrement = 1, 
         hintIncrement = 1,
         pegs = {
@@ -27,8 +37,13 @@
       // Add event listener to every code option button
       for (var i = 0; i < options.length; i++){
         options[i].addEventListener('click', insertGuess, false);
-      }
+      };
       
+      // adds event listeners to analytics board
+      analyticsNavRadar.addEventListener('click', event =>switch_analytics("radar"))
+      analyticsNavGuess.addEventListener('click', event =>switch_analytics("guess"))
+      update_analytics(analytics_data)
+
       // Add event listener to restartGame to restart the game
       document.getElementById('restartGame').onclick = newGame;
   
@@ -52,6 +67,11 @@
   
       // Check to see if player has inserted all 4 pegs in the row
       if (guess.length === 4) {
+        // add guess to analytics_data
+        //console.log(guess)
+        analytics_data["guesses"].push(guess)
+        //console.log(analytics_data["guesses"])
+
         // If guess is correct, update the game state to 'won'
         if (compare())
           gameState('won');
@@ -72,6 +92,9 @@
       // Create a shallow copy of the 'code' array using the spread syntax ('...').
       // This copy will be used for tracking matched pegs without modifying the original 'code' array.
       const codeCopy = [...code];
+
+      // used in analytics
+      const analytics_result = []
     
       // Iterate through each position in the guess
       for (let i = 0; i < code.length; i++) {
@@ -84,6 +107,9 @@
           insertPeg('hit');
           codeCopy[i] = 0;  // Mark the corresponding position in the codeCopy as matched
           guess[i] = -1;    // Mark the corresponding position in the guess as used
+
+          // add result to analytics_data
+          analytics_result.push("hit")
         } else {
           // If not, set the isMatch flag to false
           isMatch = false;
@@ -102,9 +128,16 @@
           // If so, insert an 'almost' peg and mark the corresponding position in codeCopy as matched
           insertPeg('almost');
           codeCopy[matchingIndex] = 0;
+
+          // add result to analytics_data
+          analytics_result.push("almost")
         }
       }
     
+      // add final result to analytics data, then update analytics board
+      analytics_data["results"].push(analytics_result)
+      update_analytics(analytics_data)
+
       // Increment the row for hints, reset the guess array, and return the result of the comparison
       hintIncrement += 1;
       guess = [];
@@ -185,7 +218,10 @@
         socket.className = 'hidden socket';
         socket.innerHTML = '?';
       });
-    
+      
+      // reset analytics data
+      analytics_data = {"guesses":[],"results":[]}
+
       document.body.className = ''; // Reset background
     }
   
@@ -232,6 +268,80 @@
         modalMessage.innerHTML = '<h2>You failed...</h2> <p>You got this! We believe in you!</p> <button class="large" id="hideModal">OK</button> <button class="button" id="restartGame1">Try again</button>';
         document.getElementById('restartGame1').onclick = newGame;
         document.getElementById('hideModal').onclick = hideModal;
+      }
+    }
+
+    // Function to switch between analytics boards
+    function switch_analytics (analytics_board_type) {
+
+      // guesses, pegs = analytics_update()
+      if (analytics_board_type == "guess") {
+        analyticsBoardGuess.style.display = "Block";
+        analyticsBoardRadar.style.display = "None";
+      } else if (analytics_board_type == "radar") {
+        analyticsBoardGuess.style.display = "None"
+        analyticsBoardRadar.style.display = "Block"
+      }
+    }
+
+    // Function to update analytics board after player guess
+    function update_analytics (analytics_data) {
+      
+      const guesses = analytics_data["guesses"]
+      const results = analytics_data["results"]
+
+      // at start of game
+      if (analytics_data["results"].length === 0) {
+        // setting radar chart
+        const chart_data = [{
+          type: 'scatterpolar',
+          r: [0,0,0,0,0,0],
+          theta: ['orange','purple','red', 'blue', 'green', 'yellow'],
+          fill: 'toself'
+        }];
+        const chart_layout = {
+          polar: {radialaxis: {visible: true, range: [0, 100]}},
+          showlegend: false,
+          width: 400,
+          height: 400,
+          plot_bgcolor: "rgba(255,248,220,255)",
+          paper_bgcolor: "rgba(255,248,220,255)"
+        };
+        Plotly.newPlot("analyticsBoardRadar", chart_data, chart_layout);
+
+      // after player guess
+      } else { 
+        // setting radar chart
+        const chart_data = [{
+          type: 'scatterpolar',
+          r: [100,100,100,100,100,100],
+          theta: ['orange','purple','red', 'blue', 'green', 'yellow'],
+          fill: 'toself'
+        }];
+        const chart_layout = {
+          polar: {radialaxis: {visible: true, range: [0, 100]}},
+          showlegend: false,
+          width: 400,
+          height: 400,
+          plot_bgcolor: "rgba(255,248,220,255)",
+          paper_bgcolor: "rgba(255,248,220,255)"
+        };
+        Plotly.newPlot("analyticsBoardRadar", chart_data, chart_layout);
+
+        // setting guess chart
+        // loops through the latest guess made within the analytics data
+        for (let i = 0; i < guesses[guesses.length-1].length; i++) {
+          if (results[guesses.length -1].includes("hit")){
+            console.log("Hit")
+            analytics_peg_orange.innerHTML = "<p>Hit</p>"
+          } else if (results[guesses.length -1].includes("almost")){
+            console.log("Almost")
+            analytics_peg_orange.innerHTML = "<p>Almost</p>"
+          } else {
+            console.log("Nothing")
+            analytics_peg_orange.innerHTML = "<p>Nothing</p>"
+          }
+        }
       }
     }
   
