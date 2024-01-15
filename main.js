@@ -19,6 +19,7 @@
         5: 'green',
         6: 'yellow'
       };
+      
 
   function gameSetup () {
     //Generates the sequence player has to guess
@@ -146,12 +147,15 @@
     hintIncrement = 1; // Set the first row of sockets as available for hints
     hideModal();       // Hide modal
     gameSetup();       // Prepare the game
+    document.body.classList.add('body'); 
     console.log('new game started')
   }
 
   // Function to hide modal
   function hideModal () {
     modalOverlay.className = '';
+    document.body.classList.add('body');
+    document.body.classList.remove('lost');
     console.log('modal hidden')
   }
 
@@ -224,13 +228,30 @@
 
     // Modal message based on the game state
     if (state === 'won') {
-      modalMessage.innerHTML = '<h2>You cracked the code!</h2> <p>Congratulations! You are awesome!</p> <button class="large" id="hideModal">OK</button> <button class="button" id="restartGame1">Restart</button>';
+      modalMessage.innerHTML = '<h2>You cracked the code!</h2> <p>Congratulations! You are awesome!</p> <button class="large" id="hideModal">OK</button> <button class="large1" id="restartGame1">Try again</button>';
       document.getElementById('restartGame1').onclick = newGame;
       document.getElementById('hideModal').onclick = hideModal;
     } else{
-      modalMessage.innerHTML = '<h2>You failed...</h2> <p>You got this! We believe in you!</p> <button class="large" id="hideModal">OK</button> <button class="button" id="restartGame1">Try again</button>';
-      document.getElementById('restartGame1').onclick = newGame;
-      document.getElementById('hideModal').onclick = hideModal;
+      modalMessage.innerHTML = '<img src="https://cdn-cf-east.streamable.com/image/tdsdj9_1.jpg" class="stimpy"><h2>You failed...</h2> <p>You got this! We believe in you!</p> <button class="large" id="hideModal">OK</button> <button class="large1" id="restartGame1">Try again</button><audio autoplay id="myAudio" height="0" width="0"><source src="audio/SAD - SOUND EFFECT.mp3" type="audio/mpeg"</audio>';
+      document.getElementById('restartGame1').onclick = function() {
+        // Pause the audio when the restartGame1 button is clicked
+        let vid = document.getElementById("myAudio");
+        vid.pause();
+        // Call the newGame function or perform any other actions needed for restarting the game
+        newGame();
+    };
+    document.getElementById('hideModal').onclick = function() {
+      // Pause the audio when the restartGame1 button is clicked
+      let vid = document.getElementById("myAudio");
+      vid.pause();
+      
+      // Call the newGame function or perform any other actions needed for restarting the game
+      hideModal();
+  };
+      let vid = document.getElementById("myAudio");
+      vid.volume = 0.1;
+      
+      
     }
   }
 
@@ -252,3 +273,51 @@ for (i = 0; i < coll.length; i++) {
     }
   });
 }
+
+
+
+/* Rain effect */ 
+var makeItRain = function() {
+  //clear out everything
+  $('.rain').empty();
+
+  var increment = 0;
+  var drops = "";
+  var backDrops = "";
+
+  while (increment < 100) {
+    //couple random numbers to use for various randomizations
+    //random number between 98 and 1
+    var randoHundo = (Math.floor(Math.random() * (98 - 1 + 1) + 1));
+    //random number between 5 and 2
+    var randoFiver = (Math.floor(Math.random() * (5 - 2 + 1) + 2));
+    //increment
+    increment += randoFiver;
+    //add in a new raindrop with various randomizations to certain CSS properties
+    drops += '<div class="drop" style="left: ' + increment + '%; bottom: ' + (randoFiver + randoFiver - 1 + 100) + '%; animation-delay: 0.' + randoHundo + 's; animation-duration: 0.5' + randoHundo + 's;"><div class="stem" style="animation-delay: 0.' + randoHundo + 's; animation-duration: 0.5' + randoHundo + 's;"></div><div class="splat" style="animation-delay: 0.' + randoHundo + 's; animation-duration: 0.5' + randoHundo + 's;"></div></div>';
+    backDrops += '<div class="drop" style="right: ' + increment + '%; bottom: ' + (randoFiver + randoFiver - 1 + 100) + '%; animation-delay: 0.' + randoHundo + 's; animation-duration: 0.5' + randoHundo + 's;"><div class="stem" style="animation-delay: 0.' + randoHundo + 's; animation-duration: 0.5' + randoHundo + 's;"></div><div class="splat" style="animation-delay: 0.' + randoHundo + 's; animation-duration: 0.5' + randoHundo + 's;"></div></div>';
+  }
+
+  $('.rain.front-row').append(drops);
+  $('.rain.back-row').append(backDrops);
+}
+
+$('.splat-toggle.toggle').on('click', function() {
+  $('body').toggleClass('splat-toggle');
+  $('.splat-toggle.toggle').toggleClass('active');
+  makeItRain();
+});
+
+$('.back-row-toggle.toggle').on('click', function() {
+  $('body').toggleClass('back-row-toggle');
+  $('.back-row-toggle.toggle').toggleClass('active');
+  makeItRain();
+});
+
+$('.single-toggle.toggle').on('click', function() {
+  $('body').toggleClass('single-toggle');
+  $('.single-toggle.toggle').toggleClass('active');
+  makeItRain();
+});
+
+makeItRain();
