@@ -68,9 +68,7 @@
       // Check to see if player has inserted all 4 pegs in the row
       if (guess.length === 4) {
         // add guess to analytics_data
-        //console.log(guess)
-        analytics_data["guesses"].push(guess)
-        //console.log(analytics_data["guesses"])
+        analytics_data["guesses"][analytics_data["guesses"].length] = guess.slice(0)
 
         // If guess is correct, update the game state to 'won'
         if (compare())
@@ -309,6 +307,11 @@
         };
         Plotly.newPlot("analyticsBoardRadar", chart_data, chart_layout);
 
+        const guess_row_pegs = document.getElementsByClassName("analyticsBoardGuess_peg")
+        for (let i = 0; i < guess_row_pegs.length; i++) {
+          guess_row_pegs[i].innerHTML = "?"
+        };
+
       // after player guess
       } else { 
         // setting radar chart
@@ -330,20 +333,67 @@
 
         // setting guess chart
         // loops through the latest guess made within the analytics data
-        for (let i = 0; i < guesses[guesses.length-1].length; i++) {
+        const guess = guesses[guesses.length-1] // gets the most recent guessz
+        for (let i = 0; i < guess.length; i++) {
+          //console.log(i)
           if (results[guesses.length -1].includes("hit")){
-            console.log("Hit")
-            analytics_peg_orange.innerHTML = "<p>Hit</p>"
+            // get analytics peg colour by 
+            const colour = get_colour(guess[i])
+
+            const guess_row_colour = document.getElementsByClassName(colour)
+            if (guess_row_colour[i].innerHTML != "X"){
+              guess_row_colour[i].innerHTML = "black"
+            }
+
           } else if (results[guesses.length -1].includes("almost")){
-            console.log("Almost")
-            analytics_peg_orange.innerHTML = "<p>Almost</p>"
+            // get analytics peg colour by 
+            const colour = get_colour(guess[i])
+
+            const guess_row_colour = document.getElementsByClassName(colour)
+            guess_row_colour[i].innerHTML = "X"
+
           } else {
-            console.log("Nothing")
-            analytics_peg_orange.innerHTML = "<p>Nothing</p>"
+            // get analytics peg colour by 
+            const colour = get_colour(guess[i])
+
+            const guess_row_colour = document.getElementsByClassName(colour)
+            for (let i = 0; i < guess_row_colour.length; i++) {
+              guess_row_colour[i].innerHTML = "X"
+            }
           }
         }
       }
     }
+
+    function get_colour (colour) {
+      let analytics_peg_colour = ""
+      switch (colour) {
+        case 1:
+          analytics_peg_colour = "analytics_peg_orange"
+          break;
+        case 2:
+          analytics_peg_colour = "analytics_peg_purple"
+          break;
+        case 3:
+          analytics_peg_colour = "analytics_peg_red"
+          break;
+        case 4:
+          analytics_peg_colour = "analytics_peg_blue"
+          break;
+        case 5:
+          analytics_peg_colour = "analytics_peg_green"
+          break;
+        case 6:
+          analytics_peg_colour = "analytics_peg_yellow"
+          break;
+        default:
+          console.log(colour)
+          throw new Error('get_colour did not get a number from 1-6');
+      } 
+      //console.log(analytics_peg_colour)
+      return analytics_peg_colour
+    }
+
   
     gameSetup(); // Run the game
   }());
