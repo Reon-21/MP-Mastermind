@@ -5,7 +5,7 @@
   background-color: #fff8dc;
   transition: background-color .5s ease;
   width: 100%;
-
+  height: 90%;
 }
 
 #backgroundMusic {
@@ -14,14 +14,10 @@
 
 .audio {
   position: absolute;
-  padding-top: 35px;
-  padding-left: 15px;
+  padding-top: 15px;
+  padding-left: 26px;
 }
 
-
-=======
-  height: 90%;
-}
 
 b{
   font-size: 35px;
@@ -71,13 +67,8 @@ button {
 }
 
 .content {
-  
-  height: 100%;
-  background-color: #f1f1f1;
-=======
   height: 100%;
   background-color: #fff8dc;
-
   border-radius: 20px;
 }
 
@@ -194,8 +185,6 @@ h1{
   box-shadow: none;}
 .almost { background: radial-gradient(circle at 4px 2px, #fff, #000);; 
 box-shadow: none;}
-box-shadow: none;}  
-
 
 #options {
   padding-top: 10px;
@@ -263,47 +252,22 @@ box-shadow: none;}
   background: radial-gradient(circle at 13px 18px, #fe4a49, #000);
   box-shadow: none;
 }
+
+.blue {background: black;
+  border-radius: 50%;
+  height: 40px;
+  width: 40px;
+  margin: 0;
+  background: radial-gradient(circle at 13px 18px, #3a86ff, #000);
+  box-shadow: none;
+}
+
 .green {background: black;
   border-radius: 50%;
   height: 40px;
   width: 40px;
   margin: 0;
   background: radial-gradient(circle at 13px 18px, #6a994e, #000);
-}
-
-.blue {background: black;
-  border-radius: 50%;
-  height: 40px;
-  width: 40px;
-  margin: 0;
-  background: radial-gradient(circle at 13px 18px, #3a86ff, #000);
-}
-
-.yellow {background: black;
-
-  margin: 0;
-  background: radial-gradient(circle at 13px 18px, #6a994e, #000);
-  box-shadow: none;
-}
-
-.blue {background: black;
-  border-radius: 50%;
-  height: 40px;
-  width: 40px;
-  margin: 0;
-  background: radial-gradient(circle at 13px 18px, #ffb30b, #000);
-}
-
-.orange{background: black;
-  border-radius: 50%;
-  height: 40px;
-  width: 40px;
-  margin: 0;
-  background: radial-gradient(circle at 13px 18px, #fb5607, #000);
-}
-
-.purple{background: black;
-  background: radial-gradient(circle at 13px 18px, #3a86ff, #000);
   box-shadow: none;
 }
 
@@ -312,22 +276,6 @@ box-shadow: none;}
   height: 40px;
   width: 40px;
   margin: 0;
-  background: radial-gradient(circle at 13px 18px, #8338ec, #000);
-}
-
-/*-----modal popup-----*/
-#modalMessage {
-  position: relative;
-  top: 50%;
-  left: 50%;
-  width: 50%;
-  max-width: 630px;
-  min-width: 320px;
-  height: auto;
-  z-index: 2001;
-  opacity: 1;
-  border-radius: 2px;
-  padding: 25px 20px;
   background: radial-gradient(circle at 13px 18px, #ffb30b, #000);
   box-shadow: none;
 }
@@ -341,7 +289,7 @@ box-shadow: none;}
   box-shadow: none;
 }
 
-.purple{background: black;
+.purple {background: black;
   border-radius: 50%;
   height: 40px;
   width: 40px;
@@ -399,6 +347,21 @@ box-shadow: none;}
   border: 5px solid #fff;
 }
 
+#modalOverlay.lost {
+  background-color: #000;
+  visibility: visible;
+  opacity: 1;
+}
+
+.won {
+  background-color: #fff8dc;
+}
+
+.lost {
+  background-color: #fff8dc;
+  color: #fff;
+}
+
 #confettiContainer {
   position: relative;
   top: 0;
@@ -427,9 +390,6 @@ box-shadow: none;}
     margin-top: 10px; /* Adjust the margin based on your design preference */
 }
 
-#modalOverlay.lost {
-  background-color: rgba(226, 45, 45, .5);
-
 #modalOverlay.won {
   background-color: rgba(143, 190, 0, .5);
   visibility: visible;
@@ -446,11 +406,6 @@ box-shadow: none;}
   visibility: visible;
   opacity: 1;
 }
-
-#modalOverlay.lost #modalMessage {
-  background-color: #E22D2D;
-  border: 5px solid #fff;
-} 
 
 .won {
   background-color: #fff8dc;
@@ -488,10 +443,6 @@ box-shadow: none;}
   position: absolute;
   top: 0;
 }
-
-  background-color: transparent;
-
-} 
 
 .won {
   background-color: #fff8dc;
@@ -631,5 +582,3 @@ body.single-toggle .drop:nth-child(10) {
   background-color: red;
   background-image: none;
 }
-
-
