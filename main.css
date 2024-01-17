@@ -1,57 +1,97 @@
-fieldset{
-  border: 0;
-  margin: 0;
-  padding: 0;
-}
-
-
-
-html, body{
-  height: 100%;
-}
-
-
-body{
+.body{
   position: relative;
   font-family: sans-serif;
   color: black;
   background-color: #fff8dc;
   transition: background-color .5s ease;
-  margin-top: 0.5px;
+  width: 100%;
+
 }
 
-h1 {
-  display: inline-block;
-  margin-right: 5px;
-  margin-left: 5px;
-  margin-top: 0;
-  margin-bottom: 0;
-  font-size: 1.7em;
+#backgroundMusic {
+  display: none;
+}
+
+.audio {
+  position: absolute;
+  padding-top: 35px;
+  padding-left: 15px;
+}
+
+
+=======
+  height: 90%;
+}
+
+b{
+  font-size: 35px;
+  margin-top: 0px;
+}
+
+
+button {
+  border: none;
+  border-radius: 5px;
+  font-size: 1em;
+  font-weight: 800;
+  padding: 5px 10px;
+  color: #fff8dc;
+  background-image: url(https://media.istockphoto.com/id/484096068/photo/wooden-texture-background.webp?b=1&s=170667a&w=0&k=20&c=RWLEm-1NkqPzEgrX0zRid7WHtclBQBmI4RQZlouc02g=);
   vertical-align: middle;
+  cursor: pointer;
+
+  box-shadow: 0 3px #999;
+
+  box-shadow: 0 3px #000;
+
 }
 
-.wrapper {
-  display: block;
-  width: 850px;
-  margin: 0 auto;
+.row {
+  --bs-gutter-x: 0 !important;
 }
 
-header {
-  display: block;
-  padding-bottom: 2px;
-  margin-left: 185px;
+.row.vertical-divider {
+  overflow: hidden;
+}
+.row.vertical-divider > div[class^="col-"] {
+  padding-bottom: 100px;
+  margin-bottom: -80px;
+  border-left: 3px solid black;
+}
+.row.vertical-divider div[class^="col-"]:first-child {
+  border-left: none;
+}
+.row.vertical-divider div[class^="col-"]:last-child {
+  border-right: none;
+}
+
+.button:active {  
+  box-shadow: 0 3px #666;
+  transform: translateY(4px);
+}
+
+.content {
+  
+  height: 100%;
+  background-color: #f1f1f1;
+=======
+  height: 100%;
+  background-color: #fff8dc;
+
+  border-radius: 20px;
 }
 
 .container {
   width: 400px;
   margin: 0 258px auto;
   position: relative;
+  padding-top: 25px;
+  padding-top: 2px;
 }
 
-.textual {
-  width: 400px;
-  display: inline-block;
-  vertical-align: top;
+h1{
+  margin-bottom: 0px;
+
 }
 
 .option,
@@ -59,6 +99,11 @@ header {
   display: inline-block;
   border-radius: 50%;
   background-color: #deb887;
+}
+
+.row>* {
+  padding-right: 0!important;
+  padding-left: 0!important;
 }
 
 #guesses {
@@ -81,7 +126,9 @@ header {
 }
 
 .answer .socket,
-.guess .socket{ margin-left: 10px; }
+.guess .socket{ 
+  margin-left: 10px; 
+}
 
 .answer {
   border-bottom: 2px solid #c7bf8d;
@@ -95,6 +142,10 @@ header {
   font-weight: 800;
   font-size: 16px;
   box-shadow: 3px 3px 5px black inset;
+}
+
+.js-hint-socket{
+  box-shadow: 2px 2px 2px black inset;
 }
 
 
@@ -121,6 +172,7 @@ header {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
+  margin-top: 15px;
 }
 
 .peg .row { height: 10px; }
@@ -137,17 +189,21 @@ header {
   margin-top: 5.5px
 }
 
-.peg + .peg { margin-top: 15px; }
-.hit { background-color: #000; }
-.almost { background-color: #fff; }
+/* .peg + .peg { margin-top: 15px; } */
+.hit { background: radial-gradient(circle at 4px 2px, #7e7e7e, #000);; 
+  box-shadow: none;}
+.almost { background: radial-gradient(circle at 4px 2px, #fff, #000);; 
+box-shadow: none;}
+box-shadow: none;}  
+
 
 #options {
-  margin-left: 258px;
   padding-top: 10px;
   padding-right: 4.5px;
+  padding-bottom: 25px;
   padding-bottom: 10px;
   border-radius: 0 0 20px 20px;
-  width: 346px;
+  width: 350px;
   display: block;
   text-align: center;
   font-size: 0;
@@ -159,23 +215,7 @@ header {
   margin-left: 10px;
 }
 
-button {
-  border: none;
-  border-radius: 5px;
-  font-size: 1em;
-  font-weight: 800;
-  padding: 5px 10px;
-  color: #fff8dc;
-  background-image: url(https://media.istockphoto.com/id/484096068/photo/wooden-texture-background.webp?b=1&s=170667a&w=0&k=20&c=RWLEm-1NkqPzEgrX0zRid7WHtclBQBmI4RQZlouc02g=);
-  vertical-align: middle;
-  cursor: pointer;
-  box-shadow: 0 3px #999;
-}
 
-.button:active {  
-  box-shadow: 0 3px #666;
-  transform: translateY(4px);
-}
 
 #delete {
   font-size: 21px;
@@ -184,7 +224,28 @@ button {
   border-radius: 15px;
   box-shadow: 4px 4px 4px #000;
   border: #000;
+  width: 75%;
+  width: 125px;
+  display: inline;
+  margin: 0px 0px 0px 0px;
+}
 
+#restartGame{
+  font-size: 21px;
+  background-image: url(https://media.istockphoto.com/id/484096068/photo/wooden-texture-background.webp?b=1&s=170667a&w=0&k=20&c=RWLEm-1NkqPzEgrX0zRid7WHtclBQBmI4RQZlouc02g=);
+  cursor: pointer;
+  border-radius: 15px;
+  box-shadow: 4px 4px 4px #000;
+  border: #000;
+  width: 125px;
+  display: inline;
+  margin: 10px;
+}
+
+#restartGame:active{
+  background-color: #3e8e41;
+  box-shadow: 0px 0px 0px #000;
+  transform: translateY(4px);
 }
 
 #delete:active {
@@ -200,6 +261,7 @@ button {
   width: 40px;
   margin: 0;
   background: radial-gradient(circle at 13px 18px, #fe4a49, #000);
+  box-shadow: none;
 }
 .green {background: black;
   border-radius: 50%;
@@ -218,6 +280,13 @@ button {
 }
 
 .yellow {background: black;
+
+  margin: 0;
+  background: radial-gradient(circle at 13px 18px, #6a994e, #000);
+  box-shadow: none;
+}
+
+.blue {background: black;
   border-radius: 50%;
   height: 40px;
   width: 40px;
@@ -234,6 +303,11 @@ button {
 }
 
 .purple{background: black;
+  background: radial-gradient(circle at 13px 18px, #3a86ff, #000);
+  box-shadow: none;
+}
+
+.yellow {background: black;
   border-radius: 50%;
   height: 40px;
   width: 40px;
@@ -241,37 +315,321 @@ button {
   background: radial-gradient(circle at 13px 18px, #8338ec, #000);
 }
 
-/* Style the button that is used to open and close the collapsible content */
-.collapsible {
-  border: none;
-  border-radius: 5px;
-  font-size: 1em;
-  font-weight: 800;
-  color: #fff8dc;
-  background-color: #fff8dc;
-  vertical-align: middle;
-  cursor: pointer;
-  box-shadow: 0 3px #999;
-}
-
-.collapsible:active {
-  box-shadow: 0 3px #666;
-  transform: translateY(4px);
-}
-
-/* Add a background color to the button if it is clicked on (add the .active class with JS), and when you move the mouse over it (hover) */
-.active, .collapsible:hover {
-  background-color: #ccc;
-}
-
-/* Style the collapsible content. Note: hidden by default */
-.content {
-  padding: 0 18px;
-  display: none;
-  overflow: hidden;
-  background-color: #f1f1f1;
-}
-
-.option{
+/*-----modal popup-----*/
+#modalMessage {
+  position: relative;
+  top: 50%;
+  left: 50%;
+  width: 50%;
+  max-width: 630px;
+  min-width: 320px;
+  height: auto;
+  z-index: 2001;
+  opacity: 1;
+  border-radius: 2px;
+  padding: 25px 20px;
+  background: radial-gradient(circle at 13px 18px, #ffb30b, #000);
   box-shadow: none;
 }
+
+.orange{background: black;
+  border-radius: 50%;
+  height: 40px;
+  width: 40px;
+  margin: 0;
+  background: radial-gradient(circle at 13px 18px, #fb5607, #000);
+  box-shadow: none;
+}
+
+.purple{background: black;
+  border-radius: 50%;
+  height: 40px;
+  width: 40px;
+  margin: 0;
+  background: radial-gradient(circle at 13px 18px, #8338ec, #000);
+  box-shadow: none;
+}
+
+/*-----modal popup-----*/
+#modalMessage {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  width: 90%;
+  max-width: 100%;
+  height: 90%;
+  z-index: 2000;
+  opacity: 1;
+  border-radius: 2px;
+  padding: 15px 20px;
+  text-align: center;
+  -webkit-backface-visibility: hidden;
+  -moz-backface-visibility: hidden;
+  backface-visibility: hidden;
+  -webkit-transform: translateX(-50%) translateY(-50%);
+  -moz-transform: translateX(-50%) translateY(-50%);
+  -ms-transform: translateX(-50%) translateY(-50%);
+  transform: translateX(-50%) translateY(-50%);
+}
+
+#modalOverlay {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  visibility: hidden;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  opacity: 0;
+  transition: all .3s ease;
+}
+
+#modalOverlay.hidden {
+  visibility: hidden;
+}
+
+#modalOverlay.won {
+  background-color: rgba(143, 190, 0, .5);
+  visibility: visible;
+  opacity: 1;
+}
+
+#modalOverlay.won #modalMessage {
+  background-color: #8FBE00;
+  border: 5px solid #fff;
+}
+
+#confettiContainer {
+  position: relative;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 4001; /* Adjust this value to be higher than modal and overlay */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.gifPlayer {
+  width: 100%; /* Adjust the width to your preference */
+  max-width: 100%; /* Ensure the video doesn't exceed its natural size */
+  height: auto; /* Maintain the aspect ratio */
+}
+
+.buttonContainer {
+    margin-top: 20px; /* Adjust the margin based on your design preference */
+}
+
+#hideModal,
+#restartGame1 {
+    margin-top: 10px; /* Adjust the margin based on your design preference */
+}
+
+#modalOverlay.lost {
+  background-color: rgba(226, 45, 45, .5);
+
+#modalOverlay.won {
+  background-color: rgba(143, 190, 0, .5);
+  visibility: visible;
+  opacity: 1;
+}
+
+#modalOverlay.won #modalMessage {
+  background-color: #8FBE00;
+  border: 5px solid #fff;
+}
+
+#modalOverlay.lost {
+  background-color: #000;
+  visibility: visible;
+  opacity: 1;
+}
+
+#modalOverlay.lost #modalMessage {
+  background-color: #E22D2D;
+  border: 5px solid #fff;
+} 
+
+.won {
+  background-color: #fff8dc;
+}
+
+.lost {
+  background-color: #fff8dc;
+}
+
+@media only screen and (max-width: 922px) {
+  .vertical-divider {
+    flex-direction: column;
+  }
+
+  .row.vertical-divider > div[class^="col-"]:not(:last-child) {
+    border-left: none;
+  }
+
+  .col-3,
+  .col-5,
+  .col-3 {
+    width: 95%!important;
+    margin: 0!important;
+    padding: 0!important;
+    margin-top: 10px!important;
+  }
+}
+
+#confetti {
+  overflow-y: hidden;
+  overflow-x: hidden;
+  width: 100%;
+  margin: 0;
+  height: 100%;
+  position: absolute;
+  top: 0;
+}
+
+  background-color: transparent;
+
+} 
+
+.won {
+  background-color: #fff8dc;
+}
+
+.lost {
+  background-color: #fff8dc;
+  color: #fff;
+}
+
+.content{
+  background-image: url(https://media.istockphoto.com/id/484096068/photo/wooden-texture-background.webp?b=1&s=170667a&w=0&k=20&c=RWLEm-1NkqPzEgrX0zRid7WHtclBQBmI4RQZlouc02g=);
+  color: #fff8dc;
+  box-shadow: 8px 8px 5px gray;
+  padding-bottom: 10px;
+}
+
+.rain {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+}
+
+.rain.back-row {
+  display: none;
+  z-index: 1;
+  bottom: 60px;
+  opacity: 1;
+}
+
+body.back-row-toggle .rain.back-row {
+  display: block;
+}
+
+.drop {
+  position: absolute;
+  bottom: 100%;
+  width: 15px;
+  height: 120px;
+  pointer-events: none;
+  animation: drop 0.5s linear infinite;
+}
+
+@keyframes drop {
+  0% {
+    transform: translateY(0vh);
+  }
+  75% {
+    transform: translateY(90vh);
+  }
+  100% {
+    transform: translateY(90vh);
+  }
+}
+
+.stem {
+  width: 1px;
+  height: 100%;
+  margin-left: 7px;
+  background: linear-gradient(to bottom, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.844));
+  animation: stem 0.5s linear infinite;
+}
+
+@keyframes stem {
+  0% {
+    opacity: 1;
+  }
+  65% {
+    opacity: 1;
+  }
+  75% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+.splat {
+  width: 15px;
+  height: 10px;
+  border-top: 2px dotted rgba(255, 255, 255, 0.5);
+  border-radius: 50%;
+  opacity: 1;
+  transform: scale(0);
+  animation: splat 0.5s linear infinite;
+  display: none;
+}
+
+body.splat-toggle .splat {
+  display: block;
+}
+
+@keyframes splat {
+  0% {
+    opacity: 1;
+    transform: scale(0);
+  }
+  80% {
+    opacity: 1;
+    transform: scale(0);
+  }
+  90% {
+    opacity: 0.5;
+    transform: scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1.5);
+  }
+}
+
+
+
+body.single-toggle .drop {
+  display: none;
+}
+
+body.single-toggle .drop:nth-child(10) {
+  display: block;
+}
+
+.stimpy{
+  height: 300px;
+}
+
+.large{
+  border-radius: 5px;
+  background-color: blue;
+  background-image: none;
+}
+
+.large1{
+  border-radius: 5px;
+  background-color: red;
+  background-image: none;
+}
+
+
