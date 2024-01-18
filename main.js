@@ -238,8 +238,25 @@
 
     // Modal message based on the game state
     if (state === "won") {
-      modalMessage.innerHTML =
-        '<h2>You cracked the code!</h2> <p>Congratulations! You are awesome!</p> <div id="confettiContainer"><video class="gifPlayer" "width="100%" height="100%" frameborder="0" allowfullscreen loop autoplay><source src="source/toothless-toothless-dragon.mp4" type="video/mp4">Your browser does not support the video tag.</video><button class="large" id="hideModal">OK</button> <button class="button" id="restartGame1">Restart</button></div>';
+      modalMessage.innerHTML = `
+      <h2>You cracked the code!</h2>
+      <p>Congratulations! You are awesome!</p>
+      <div id="confettiContainer">
+        <video class="gifPlayer" "width="100%" height="100%" frameborder="0" allowfullscreen loop autoplay>
+          <source src="source/toothless-toothless-dragon.mp4" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
+        <div style="display: flex">
+          <button class="large" style="margin-right:3px;" id="hideModal">OK</button>
+          <button class="button" style="margin-left:3px;" id="restartGame1">Restart</button>
+        </div>
+      </div>
+      <style>
+        #modalMessage {
+          width: unset;
+          height: unset;
+        }
+      </style>`;
       var audioWon = new Audio(
         "source/toothless-dance-made-with-Voicemod-technology.mp3"
       );
@@ -253,6 +270,18 @@
         audioWon.pause();
         hideModal();
       };
+      var element1 = document.getElementsByClassName('back-row-toggle splat-toggle');
+      var element2 = document.getElementsByClassName('rain front-row');
+      var element3 = document.getElementsByClassName('brain back-row');
+      for (var i = 0; i < element1.length; i++) {
+        element1[i].style.display = 'none';
+      }
+      for (var i = 0; i < element2.length; i++) {
+        element2[i].style.display = 'none';
+      }
+      for (var i = 0; i < element3.length; i++) {
+        element3[i].style.display = 'none';
+      }
       showConfetti();
     } else {
       modalMessage.innerHTML =
@@ -323,16 +352,22 @@
     var playButton = document.getElementById("buttonMusic");
     var volumeSlider = document.getElementById("volumeSlider");
 
+    // Set the initial volume based on the default value of the volume slider
+    myaudio.volume = parseFloat(volumeSlider.value) / 100;
+
     playButton.addEventListener("click", function () {
-      myaudio.paused
-        ? (myaudio.play(), (myaudio.volume = parseFloat(volumeSlider.value)))
-        : myaudio.pause();
+        myaudio.paused
+            ? (myaudio.play(), (myaudio.volume = parseFloat(volumeSlider.value) / 100))
+            : myaudio.pause();
     });
 
     volumeSlider.addEventListener("input", function () {
-      myaudio.volume = parseFloat(volumeSlider.value);
+        // Calculate volume based on slider value (ranging from 0 to 100)
+        var calculatedVolume = parseFloat(volumeSlider.value) / 100;
+        myaudio.volume = calculatedVolume;
     });
-  });
+});
+
 })();
 
 /* Rain effect */
@@ -414,3 +449,17 @@ $(".single-toggle.toggle").on("click", function () {
 });
 
 makeItRain();
+
+var isMuted = false;
+function toggleMute() {
+  isMuted = !isMuted;
+  var musicIcon = document.getElementById("musicIcon");
+
+  if (isMuted) {
+    musicIcon.classList.remove("fa-volume-up");
+    musicIcon.classList.add("fa-volume-mute");
+  } else {
+    musicIcon.classList.remove("fa-volume-mute");
+    musicIcon.classList.add("fa-volume-up");
+  }
+}

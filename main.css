@@ -36,9 +36,9 @@ button {
   vertical-align: middle;
   cursor: pointer;
 
-  box-shadow: 0 3px #999;
+  /* box-shadow: 0 3px #999;
 
-  box-shadow: 0 3px #000;
+  box-shadow: 0 3px #000; */
 
 }
 
@@ -78,6 +78,7 @@ button {
   position: relative;
   padding-top: 25px;
   padding-top: 2px;
+  margin-bottom: 40px;
 }
 
 h1{
@@ -104,6 +105,7 @@ h1{
   padding: 15px 40px;
   font-size: 0;
   box-shadow: 8px 13px 5px gray;
+  margin-left: auto;
 }
 
 .guess { margin-top: 15px; }
@@ -156,6 +158,8 @@ h1{
   font-size: 0;
   margin-left: 0px;
   box-shadow: 8px 13px 5px gray;
+  margin-right: auto;
+  margin-top: auto;
 }
 
 .peg {
@@ -581,4 +585,9 @@ body.single-toggle .drop:nth-child(10) {
   border-radius: 5px;
   background-color: red;
   background-image: none;
+}
+
+.board {
+  display: flex;
+  margin: auto;
 }
