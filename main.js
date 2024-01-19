@@ -248,7 +248,7 @@
         </video>
         <div style="display: flex">
           <button class="large" style="margin-right:3px;" id="hideModal">OK</button>
-          <button class="button" style="margin-left:3px;" id="restartGame1">Restart</button>
+          <button class="large1" style="margin-left:3px;" id="restartGame1">Restart</button>
         </div>
       </div>
       <style>
