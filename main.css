@@ -74,11 +74,10 @@ button {
 
 .container {
   width: 400px;
-  margin: 0 258px auto;
   position: relative;
   padding-top: 25px;
   padding-top: 2px;
-  margin-bottom: 40px;
+  margin-bottom: 10px;
 }
 
 h1{

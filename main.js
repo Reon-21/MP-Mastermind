@@ -463,3 +463,46 @@ function toggleMute() {
     musicIcon.classList.add("fa-volume-up");
   }
 }
+
+/* Internet Connection Detection */
+//To detect online/offline status
+
+const checkOnlineStatus = () => {
+  return new Promise(async (resolve) => {
+    let resolved = false;
+    // requests longer than 15 seconds are considered "offline"
+    const timer = setTimeout(() => {
+      resolved = true;
+      resolve(false);
+    }, 15000);
+
+    try {
+      const online = await fetch("/1pixel.png");
+      clearTimeout(timer);
+      if (!resolved) {
+        resolve(online.status >= 200 && online.status < 300); // either true or false
+      }
+    } catch (err) {
+      if (!resolved) {
+        resolve(false); // definitely offline
+      }
+    }
+  });
+};
+
+(function pollOnlineStatus() {
+  setTimeout(async () => {
+    const result = await checkOnlineStatus();
+    const statusDisplay = document.getElementById("status");
+    statusDisplay.textContent = result ? "Online" : "OFFline";
+    pollOnlineStatus(); // self-calling timeout is better than setInterval for this
+  }, 3000);
+})()
+
+// forgot to include async load event listener in the video! 
+window.addEventListener("load", async (event) => {
+  const statusDisplay = document.getElementById("status");
+  statusDisplay.textContent = (await checkOnlineStatus())
+    ? "Online"
+    : "OFFline";
+});
