@@ -15,9 +15,9 @@
         analyticsNavRadar = document.getElementById("analyticsNavRadar"),
         analyticsNavGuess = document.getElementById("analyticsNavGuess"),
 
-        analytics_peg_orange = document.getElementsByClassName("analytics_peg_orange"),
         // stores data of user guesses and peg results
         analytics_data = {"guesses":[],"results":[]},
+        chart_percentages = [50,50,50,50,50,50],
 
         rowIncrement = 1, 
         hintIncrement = 1,
@@ -290,6 +290,7 @@
 
       // at start of game
       if (analytics_data["results"].length === 0) {
+        
         // setting radar chart
         const chart_data = [{
           type: 'scatterpolar',
@@ -312,12 +313,79 @@
           guess_row_pegs[i].innerHTML = "?"
         };
 
+        chart_percentages = [50,50,50,50,50,50];
+
       // after player guess
       } else { 
-        // setting radar chart
+        // setting radar chart, this is very jank
+        const guess = guesses[guesses.length-1] // gets the most recent guess
+        const result = results[guesses.length -1] // gets most recent result
+
+        // returns array of unique values
+        function onlyUnique(value, index, array) {
+          return array.indexOf(value) === index;
+        }
+        // usage example:
+        var unique = guess.filter(onlyUnique); // unqiue is the unique colours within the guess
+
+        // based of each colour being able to appear 671 out of the 1296 possible combiantions
+        for (let i = 0; i < guess.length; i++) {
+          if (result.length == 0){ // if there are no black/white pegs (all guessed colours confirmed wrong)
+            chart_percentages[guess[i] - 1] = 0 // set wrong colour/s to 0
+
+          } else if (result.length <= 2){ // if there are less or equal to 2 black/white pegs
+            if (unique.length == 1) { //check if only 1 unique colour 
+              console.log(unique[0] - 1)
+              chart_percentages[unique[0] - 1] = 100
+              
+            } else { // if mulitple colours in guess
+              for (let j = 0; j < chart_percentages.length; j++) { 
+                if (unique.includes(j+1)){ // select colour in guess, add 10% chance to it
+                  if (chart_percentages[j] >= 90){ // prevents colour from going above 90%
+                    chart_percentages[j] += 10
+                  }
+                } else { // select colour in guess, minus 10% chance to it
+                  if (chart_percentages[j] <= 10){ // prevents colour from going under 10%
+                    chart_percentages[j] -= 10
+                  }
+                }
+              }
+            }
+            break;
+          } else if (result.length < 4){ // if there are 3 coloured pegs
+              if (unique.length == 1) { //check if only 1 unique colour 
+                console.log(unique[0] - 1)
+                chart_percentages[unique[0] - 1] = 100
+              } else { // if mulitple colours in guess
+                for (let j = 0; j < chart_percentages.length; j++) {
+                  if (unique.includes(j+1)){ // select colour in guess, add 10% chance to it
+                    if (chart_percentages[j] >= 90){ // prevents colour from going above 90%
+                      chart_percentages[j] += 10
+                    }
+                  } else { // select colour in guess, minus 10% chance to it
+                    if (chart_percentages[j] <= 10){ // prevents colour from going under 10%
+                      chart_percentages[j] -= 10
+                    }
+                  }
+                }
+              }
+              break;
+            
+          } else { // if there are 4 black/white pegs (all guessed colours confirmed correct)
+            chart_percentages[guess[i] - 1] = 100
+            // turn rest of colour percentages into 0
+            for (let j = 0; j < chart_percentages.length; j++) {
+              if (chart_percentages[j] != 100){
+                chart_percentages[j] = 0
+              }
+            }
+          }
+        } 
+
+        console.log(chart_percentages)
         const chart_data = [{
           type: 'scatterpolar',
-          r: [100,100,100,100,100,100],
+          r: chart_percentages,
           theta: ['orange','purple','red', 'blue', 'green', 'yellow'],
           fill: 'toself'
         }];
@@ -333,10 +401,9 @@
 
         // setting guess chart
         // loops through the latest guess made within the analytics data
-        const guess = guesses[guesses.length-1] // gets the most recent guessz
         for (let i = 0; i < guess.length; i++) {
           //console.log(i)
-          if (results[guesses.length -1].includes("hit")){
+          if (result.includes("hit")){
             // get analytics peg colour by 
             const colour = get_colour(guess[i])
 
@@ -345,7 +412,7 @@
               guess_row_colour[i].innerHTML = "black"
             }
 
-          } else if (results[guesses.length -1].includes("almost")){
+          } else if (result.includes("almost")){
             // get analytics peg colour by 
             const colour = get_colour(guess[i])
 
