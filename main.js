@@ -227,8 +227,15 @@
     revealCode();
   }
 
+  function resumeAudio(audioElement) {
+    if (audioElement.paused) {
+        audioElement.play();
+    }
+}
+
   // Function to handle the game state (win or lose)
   function gameState(state) {
+    var myaudio = document.getElementById("audioID");
     // Calls gameOver function which disables the color options
     gameOver();
     // Set the class name of the body element to the state (win or lose)
@@ -238,6 +245,7 @@
 
     // Modal message based on the game state
     if (state === "won") {
+      myaudio.pause();
       modalMessage.innerHTML = `
       <h2>You cracked the code!</h2>
       <p>Congratulations! You are awesome!</p>
@@ -264,10 +272,12 @@
       audioWon.play();
       document.getElementById("restartGame1").onclick = function () {
         audioWon.pause();
+        resumeAudio(myaudio);
         newGame();
       };
       document.getElementById("hideModal").onclick = function () {
         audioWon.pause();
+        resumeAudio(myaudio);
         hideModal();
       };
       var element1 = document.getElementsByClassName('back-row-toggle splat-toggle');
@@ -284,12 +294,14 @@
       }
       showConfetti();
     } else {
+      myaudio.pause();
       modalMessage.innerHTML =
         '<img src="https://cdn-cf-east.streamable.com/image/tdsdj9_1.jpg" class="stimpy"><h2>You failed...</h2> <p>You got this! We believe in you!</p> <button class="large" id="hideModal">OK</button> <button class="large1" id="restartGame1">Try again</button><audio autoplay id="myAudio" height="0" width="0"><source src="audio/SAD - SOUND EFFECT.mp3" type="audio/mpeg"</audio>';
       document.getElementById("restartGame1").onclick = function () {
         // Pause the audio when the restartGame1 button is clicked
         let vid = document.getElementById("myAudio");
         vid.pause();
+        resumeAudio(myaudio);
         // Call the newGame function or perform any other actions needed for restarting the game
         newGame();
       };
@@ -297,7 +309,7 @@
         // Pause the audio when the restartGame1 button is clicked
         let vid = document.getElementById("myAudio");
         vid.pause();
-
+        resumeAudio(myaudio);
         // Call the newGame function or perform any other actions needed for restarting the game
         hideModal();
       };
@@ -505,4 +517,16 @@ window.addEventListener("load", async (event) => {
   statusDisplay.textContent = (await checkOnlineStatus())
     ? "Online"
     : "OFFline";
+});
+
+document.addEventListener("DOMContentLoaded", function () {
+  const themeToggleButton = document.getElementById("themeToggleButton");
+  
+  if (themeToggleButton) {
+      themeToggleButton.addEventListener("click", toggleTheme);
+  }
+
+  function toggleTheme() {
+      document.body.classList.toggle("dark-theme");
+  }
 });

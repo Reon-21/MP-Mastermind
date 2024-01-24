@@ -8,6 +8,32 @@
   height: 90%;
 }
 
+body.dark-theme {
+  background: linear-gradient(-90deg, #3f3f3f, #000000, #3f3f3f);
+	background-size: 400% 400%;
+	animation: gradient 15s ease infinite;
+	height: 100vh;
+  color: #ffffff;
+}
+
+@keyframes gradient {
+	0% {
+		background-position: 0% 50%;
+	}
+	50% {
+		background-position: 100% 50%;
+	}
+	100% {
+		background-position: 0% 50%;
+	}
+}
+
+#themeToggleButton {
+  position: absolute;
+    top: 10px;
+    right: 10px;
+}
+
 #backgroundMusic {
   display: none;
 }
@@ -434,6 +460,18 @@ box-shadow: none;}
     margin: 0!important;
     padding: 0!important;
     margin-top: 10px!important;
+  }
+
+  b {
+    font-size: 25px;
+  }
+
+  .audio {
+    margin-top: 20px;
+  }
+
+  #themeToggleButton {
+    margin-top: 20px;
   }
 }
 
