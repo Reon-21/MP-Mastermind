@@ -26,6 +26,11 @@
     />
     <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.4.0"></script>
+    <script
+      src="https://cdn.plot.ly/plotly-2.27.0.min.js"
+      charset="utf-8"
+    ></script>
+    <!--graphing library for analytics-->
     <title>JS Mastermind Game</title>
   </head>
   <body class="body">
@@ -44,7 +49,10 @@
       />
 
       <audio id="audioID" autoplay loop>
-        <source src="source/Calm-and-Peaceful(chosic.com).mp3"  type="audio/mp3"> 
+        <source
+          src="source/Calm-and-Peaceful(chosic.com).mp3"
+          type="audio/mp3"
+        />
       </audio>
     </div>
     <button id="themeToggleButton">Toggle Theme</button>
@@ -264,7 +272,118 @@
         </div>
       </div>
 
-      <div class="col-3"></div>
+      <div class="col-3">
+        <div class="analytics_container text-center">
+          <h3 class="text-center"><u>Analytics Board</u></h3>
+          <div id="analyticsNav">
+            <button class="button" id="analyticsNavRadar">Radar Chart</button>
+            <button class="button" id="analyticsNavGuess">Guess Board</button>
+          </div>
+        </div>
+        <div
+          id="analyticsBoardRadar"
+          class="analytics_container text-center"
+        ></div>
+        <div id="analyticsBoardGuess" class="analytics_container">
+          <div class="analytics_container">
+            <div
+              id="analyticsBoardGuess_colour"
+              class="analyticsBoardGuess_colour orange"
+            ></div>
+            <div
+              class="pos_1 analytics_peg_orange analyticsBoardGuess_peg"
+            ></div>
+            <div
+              class="pos_2 analytics_peg_orange analyticsBoardGuess_peg"
+            ></div>
+            <div
+              class="pos_3 analytics_peg_orange analyticsBoardGuess_peg"
+            ></div>
+            <div
+              class="pos_4 analytics_peg_orange analyticsBoardGuess_peg"
+            ></div>
+          </div>
+
+          <div class="analytics_container">
+            <div
+              id="analyticsBoardGuess_colour"
+              class="analyticsBoardGuess_colour purple"
+            ></div>
+            <div
+              class="pos_1 analytics_peg_purple analyticsBoardGuess_peg"
+            ></div>
+            <div
+              class="pos_2 analytics_peg_purple analyticsBoardGuess_peg"
+            ></div>
+            <div
+              class="pos_3 analytics_peg_purple analyticsBoardGuess_peg"
+            ></div>
+            <div
+              class="pos_4 analytics_peg_purple analyticsBoardGuess_peg"
+            ></div>
+          </div>
+
+          <div class="analytics_container">
+            <div
+              id="analyticsBoardGuess_colour"
+              class="analyticsBoardGuess_colour red"
+            ></div>
+            <div class="pos_1 analytics_peg_red analyticsBoardGuess_peg"></div>
+            <div class="pos_2 analytics_peg_red analyticsBoardGuess_peg"></div>
+            <div class="pos_3 analytics_peg_red analyticsBoardGuess_peg"></div>
+            <div class="pos_4 analytics_peg_red analyticsBoardGuess_peg"></div>
+          </div>
+
+          <div class="analytics_container">
+            <div
+              id="analyticsBoardGuess_colour"
+              class="analyticsBoardGuess_colour blue"
+            ></div>
+            <div class="pos_1 analytics_peg_blue analyticsBoardGuess_peg"></div>
+            <div class="pos_2 analytics_peg_blue analyticsBoardGuess_peg"></div>
+            <div class="pos_3 analytics_peg_blue analyticsBoardGuess_peg"></div>
+            <div class="pos_4 analytics_peg_blue analyticsBoardGuess_peg"></div>
+          </div>
+
+          <div class="analytics_container">
+            <div
+              id="analyticsBoardGuess_colour"
+              class="analyticsBoardGuess_colour green"
+            ></div>
+            <div
+              class="pos_1 analytics_peg_green analyticsBoardGuess_peg"
+            ></div>
+            <div
+              class="pos_2 analytics_peg_green analyticsBoardGuess_peg"
+            ></div>
+            <div
+              class="pos_3 analytics_peg_green analyticsBoardGuess_peg"
+            ></div>
+            <div
+              class="pos_4 analytics_peg_green analyticsBoardGuess_peg"
+            ></div>
+          </div>
+
+          <div class="analytics_container">
+            <div
+              id="analyticsBoardGuess_colour"
+              class="analyticsBoardGuess_colour yellow"
+            ></div>
+            <div
+              class="pos_1 analytics_peg_yellow analyticsBoardGuess_peg"
+            ></div>
+            <div
+              class="pos_2 analytics_peg_yellow analyticsBoardGuess_peg"
+            ></div>
+            <div
+              class="pos_3 analytics_peg_yellow analyticsBoardGuess_peg"
+            ></div>
+            <div
+              class="pos_4 analytics_peg_yellow analyticsBoardGuess_peg"
+            ></div>
+          </div>
+        </div>
+      </div>
     </div>
 
     <div id="modalOverlay">

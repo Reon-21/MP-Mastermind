@@ -10,6 +10,15 @@
     hiddenSockets = document.getElementsByClassName("hidden socket"), //The sequence player has to guess
     modalOverlay = document.getElementById("modalOverlay"),
     modalMessage = document.getElementById("modalMessage"),
+    // used in analytics part
+    analyticsBoardRadar = document.getElementById('analyticsBoardRadar'),
+    analyticsBoardGuess = document.getElementById('analyticsBoardGuess'),
+    analyticsNavRadar = document.getElementById("analyticsNavRadar"),
+    analyticsNavGuess = document.getElementById("analyticsNavGuess"),
+
+    // stores data of user guesses and peg results
+    analytics_data = {"guesses":[],"results":[]},
+    chart_percentages = [50,50,50,50,50,50],
     rowIncrement = 1,
     hintIncrement = 1,
     pegs = {
@@ -28,7 +37,12 @@
     // Add event listener to every code option button
     for (var i = 0; i < options.length; i++) {
       options[i].addEventListener("click", insertGuess, false);
-    }
+    };
+
+    // adds event listeners to analytics board
+    analyticsNavRadar.addEventListener('click', event =>switch_analytics("radar"))
+    analyticsNavGuess.addEventListener('click', event =>switch_analytics("guess"))
+    update_analytics(analytics_data)
 
     // Add event listener to restartGame to restart the game
     document.getElementById("restartGame").onclick = newGame;
@@ -61,6 +75,8 @@
 
     // Check to see if player has inserted all 4 pegs in the row
     if (guess.length === 4) {
+      // add guess to analytics_data
+      analytics_data["guesses"][analytics_data["guesses"].length] = guess.slice(0)
       // If guess is correct, update the game state to 'won'
       if (compare()) gameState("won");
       // If guess is wrong, increment the row by 1 and continue the game
@@ -79,6 +95,9 @@
     // This copy will be used for tracking matched pegs without modifying the original 'code' array.
     const codeCopy = [...code];
 
+    // used in analytics
+    const analytics_result = []
+
     // Iterate through each position in the guess
     for (let i = 0; i < code.length; i++) {
       // Get the current peg value in the guess
@@ -90,6 +109,8 @@
         insertPeg("hit");
         codeCopy[i] = 0; // Mark the corresponding position in the codeCopy as matched
         guess[i] = -1; // Mark the corresponding position in the guess as used
+        // add result to analytics_data
+        analytics_result.push("hit")
       } else {
         // If not, set the isMatch flag to false
         isMatch = false;
@@ -108,8 +129,15 @@
         // If so, insert an 'almost' peg and mark the corresponding position in codeCopy as matched
         insertPeg("almost");
         codeCopy[matchingIndex] = 0;
+
+         // add result to analytics_data
+         analytics_result.push("almost")
       }
     }
+
+    // add final result to analytics data, then update analytics board
+    analytics_data["results"].push(analytics_result)
+    update_analytics(analytics_data)
 
     // Increment the row for hints, reset the guess array, and return the result of the comparison
     hintIncrement += 1;
@@ -196,6 +224,9 @@
       socket.className = "hidden socket";
       socket.innerHTML = "?";
     });
+
+    // reset analytics data
+    analytics_data = {"guesses":[],"results":[]}
 
     document.body.className = ""; // Reset background
   }
@@ -317,6 +348,198 @@
       let vid = document.getElementById("myAudio");
       vid.volume = 0.1;
     }
+  }
+
+  // Function to switch between analytics boards
+  function switch_analytics (analytics_board_type) {
+
+    // guesses, pegs = analytics_update()
+    if (analytics_board_type == "guess") {
+      analyticsBoardGuess.style.display = "Block";
+      analyticsBoardRadar.style.display = "None";
+    } else if (analytics_board_type == "radar") {
+      analyticsBoardGuess.style.display = "None"
+      analyticsBoardRadar.style.display = "Block"
+    }
+  }
+
+  // Function to update analytics board after player guess
+  function update_analytics (analytics_data) {
+    
+    const guesses = analytics_data["guesses"]
+    const results = analytics_data["results"]
+
+    // at start of game
+    if (analytics_data["results"].length === 0) {
+      
+      // setting radar chart
+      const chart_data = [{
+        type: 'scatterpolar',
+        r: [0,0,0,0,0,0],
+        theta: ['orange','purple','red', 'blue', 'green', 'yellow'],
+        fill: 'toself'
+      }];
+      const chart_layout = {
+        polar: {radialaxis: {visible: true, range: [0, 100]}},
+        showlegend: false,
+        width: 400,
+        height: 400,
+        plot_bgcolor: "rgba(255,248,220,255)",
+        paper_bgcolor: "rgba(255,248,220,255)"
+      };
+      Plotly.newPlot("analyticsBoardRadar", chart_data, chart_layout);
+
+      const guess_row_pegs = document.getElementsByClassName("analyticsBoardGuess_peg")
+      for (let i = 0; i < guess_row_pegs.length; i++) {
+        guess_row_pegs[i].innerHTML = "?"
+      };
+
+      chart_percentages = [50,50,50,50,50,50];
+
+    // after player guess
+    } else { 
+      // setting radar chart, this is very jank
+      const guess = guesses[guesses.length-1] // gets the most recent guess
+      const result = results[guesses.length -1] // gets most recent result
+
+      // returns array of unique values
+      function onlyUnique(value, index, array) {
+        return array.indexOf(value) === index;
+      }
+      // usage example:
+      var unique = guess.filter(onlyUnique); // unqiue is the unique colours within the guess
+
+      // based of each colour being able to appear 671 out of the 1296 possible combiantions
+      for (let i = 0; i < guess.length; i++) {
+        if (result.length == 0){ // if there are no black/white pegs (all guessed colours confirmed wrong)
+          chart_percentages[guess[i] - 1] = 0 // set wrong colour/s to 0
+
+        } else if (result.length <= 2){ // if there are less or equal to 2 black/white pegs
+          if (unique.length == 1) { //check if only 1 unique colour 
+            console.log(unique[0] - 1)
+            chart_percentages[unique[0] - 1] = 100
+            
+          } else { // if mulitple colours in guess
+            for (let j = 0; j < chart_percentages.length; j++) { 
+              if (unique.includes(j+1)){ // select colour in guess, add 10% chance to it
+                if (chart_percentages[j] >= 90){ // prevents colour from going above 90%
+                  chart_percentages[j] += 10
+                }
+              } else { // select colour in guess, minus 10% chance to it
+                if (chart_percentages[j] <= 10){ // prevents colour from going under 10%
+                  chart_percentages[j] -= 10
+                }
+              }
+            }
+          }
+          break;
+        } else if (result.length < 4){ // if there are 3 coloured pegs
+            if (unique.length == 1) { //check if only 1 unique colour 
+              console.log(unique[0] - 1)
+              chart_percentages[unique[0] - 1] = 100
+            } else { // if mulitple colours in guess
+              for (let j = 0; j < chart_percentages.length; j++) {
+                if (unique.includes(j+1)){ // select colour in guess, add 10% chance to it
+                  if (chart_percentages[j] >= 90){ // prevents colour from going above 90%
+                    chart_percentages[j] += 10
+                  }
+                } else { // select colour in guess, minus 10% chance to it
+                  if (chart_percentages[j] <= 10){ // prevents colour from going under 10%
+                    chart_percentages[j] -= 10
+                  }
+                }
+              }
+            }
+            break;
+          
+        } else { // if there are 4 black/white pegs (all guessed colours confirmed correct)
+          chart_percentages[guess[i] - 1] = 100
+          // turn rest of colour percentages into 0
+          for (let j = 0; j < chart_percentages.length; j++) {
+            if (chart_percentages[j] != 100){
+              chart_percentages[j] = 0
+            }
+          }
+        }
+      } 
+
+      console.log(chart_percentages)
+      const chart_data = [{
+        type: 'scatterpolar',
+        r: chart_percentages,
+        theta: ['orange','purple','red', 'blue', 'green', 'yellow'],
+        fill: 'toself'
+      }];
+      const chart_layout = {
+        polar: {radialaxis: {visible: true, range: [0, 100]}},
+        showlegend: false,
+        width: 400,
+        height: 400,
+        plot_bgcolor: "rgba(255,248,220,255)",
+        paper_bgcolor: "rgba(255,248,220,255)"
+      };
+      Plotly.newPlot("analyticsBoardRadar", chart_data, chart_layout);
+
+      // setting guess chart
+      // loops through the latest guess made within the analytics data
+      for (let i = 0; i < guess.length; i++) {
+        //console.log(i)
+        if (result.includes("hit")){
+          // get analytics peg colour by 
+          const colour = get_colour(guess[i])
+
+          const guess_row_colour = document.getElementsByClassName(colour)
+          if (guess_row_colour[i].innerHTML != "X"){
+            guess_row_colour[i].innerHTML = "black"
+          }
+
+        } else if (result.includes("almost")){
+          // get analytics peg colour by 
+          const colour = get_colour(guess[i])
+
+          const guess_row_colour = document.getElementsByClassName(colour)
+          guess_row_colour[i].innerHTML = "X"
+
+        } else {
+          // get analytics peg colour by 
+          const colour = get_colour(guess[i])
+
+          const guess_row_colour = document.getElementsByClassName(colour)
+          for (let i = 0; i < guess_row_colour.length; i++) {
+            guess_row_colour[i].innerHTML = "X"
+          }
+        }
+      }
+    }
+  }
+
+  function get_colour (colour) {
+    let analytics_peg_colour = ""
+    switch (colour) {
+      case 1:
+        analytics_peg_colour = "analytics_peg_orange"
+        break;
+      case 2:
+        analytics_peg_colour = "analytics_peg_purple"
+        break;
+      case 3:
+        analytics_peg_colour = "analytics_peg_red"
+        break;
+      case 4:
+        analytics_peg_colour = "analytics_peg_blue"
+        break;
+      case 5:
+        analytics_peg_colour = "analytics_peg_green"
+        break;
+      case 6:
+        analytics_peg_colour = "analytics_peg_yellow"
+        break;
+      default:
+        console.log(colour)
+        throw new Error('get_colour did not get a number from 1-6');
+    } 
+    //console.log(analytics_peg_colour)
+    return analytics_peg_colour
   }
 
   gameSetup(); // Run the game
