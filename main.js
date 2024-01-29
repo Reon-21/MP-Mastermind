@@ -376,7 +376,7 @@
       const chart_data = [{
         type: 'scatterpolar',
         r: [0,0,0,0,0,0],
-        theta: ['orange','purple','red', 'blue', 'green', 'yellow'],
+        theta: ['Orange','Purple','Red', 'Blue', 'Green', 'Yellow'],
         fill: 'toself'
       }];
       const chart_layout = {
@@ -384,8 +384,8 @@
         showlegend: false,
         width: 400,
         height: 400,
-        plot_bgcolor: "rgba(255,248,220,255)",
-        paper_bgcolor: "rgba(255,248,220,255)"
+        plot_bgcolor: "rgba(0,0,0,0)",
+        paper_bgcolor: "rgba(0,0,0,0)"
       };
       Plotly.newPlot("analyticsBoardRadar", chart_data, chart_layout);
 
@@ -416,42 +416,43 @@
 
         } else if (result.length <= 2){ // if there are less or equal to 2 black/white pegs
           if (unique.length == 1) { //check if only 1 unique colour 
-            console.log(unique[0] - 1)
             chart_percentages[unique[0] - 1] = 100
             
           } else { // if mulitple colours in guess
-            for (let j = 0; j < chart_percentages.length; j++) { 
+            for (let j = 0; j < chart_percentages.length; j++) {
               if (unique.includes(j+1)){ // select colour in guess, add 10% chance to it
-                if (chart_percentages[j] >= 90){ // prevents colour from going above 90%
+                console.log(chart_percentages[j])
+                if (chart_percentages[j] < 89 && chart_percentages[j] > 10){ // prevents colour from going above 90%
                   chart_percentages[j] += 10
                 }
               } else { // select colour in guess, minus 10% chance to it
-                if (chart_percentages[j] <= 10){ // prevents colour from going under 10%
+                console.log(chart_percentages[j])
+                if (chart_percentages[j] > 11 && chart_percentages[j] < 90){ // prevents colour from going under 10%
                   chart_percentages[j] -= 10
                 }
               }
             }
+            break;
           }
-          break;
         } else if (result.length < 4){ // if there are 3 coloured pegs
             if (unique.length == 1) { //check if only 1 unique colour 
-              console.log(unique[0] - 1)
               chart_percentages[unique[0] - 1] = 100
             } else { // if mulitple colours in guess
               for (let j = 0; j < chart_percentages.length; j++) {
                 if (unique.includes(j+1)){ // select colour in guess, add 10% chance to it
-                  if (chart_percentages[j] >= 90){ // prevents colour from going above 90%
+                  console.log(chart_percentages[j])
+                  if (chart_percentages[j] < 89 && chart_percentages[j] > 10){ // prevents colour from going above 90%
                     chart_percentages[j] += 10
                   }
                 } else { // select colour in guess, minus 10% chance to it
-                  if (chart_percentages[j] <= 10){ // prevents colour from going under 10%
+                  console.log(chart_percentages[j])
+                  if (chart_percentages[j] > 11 && chart_percentages[j] < 90){ // prevents colour from going under 10%
                     chart_percentages[j] -= 10
                   }
                 }
               }
+              break;
             }
-            break;
-          
         } else { // if there are 4 black/white pegs (all guessed colours confirmed correct)
           chart_percentages[guess[i] - 1] = 100
           // turn rest of colour percentages into 0
@@ -463,20 +464,22 @@
         }
       } 
 
-      console.log(chart_percentages)
       const chart_data = [{
         type: 'scatterpolar',
         r: chart_percentages,
-        theta: ['orange','purple','red', 'blue', 'green', 'yellow'],
-        fill: 'toself'
+        theta: ['Orange','Purple','Red', 'Blue', 'Green', 'Yellow'],
+        fill: 'toself',
+        marker: {
+          color:"gray"
+        },
       }];
       const chart_layout = {
         polar: {radialaxis: {visible: true, range: [0, 100]}},
         showlegend: false,
         width: 400,
         height: 400,
-        plot_bgcolor: "rgba(255,248,220,255)",
-        paper_bgcolor: "rgba(255,248,220,255)"
+        plot_bgcolor: "rgba(0,0,0,0)",
+        paper_bgcolor: "rgba(0,0,0,0)",
       };
       Plotly.newPlot("analyticsBoardRadar", chart_data, chart_layout);
 

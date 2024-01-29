@@ -348,6 +348,11 @@ box-shadow: none;}
   transform: translateX(-50%) translateY(-50%);
 }
 
+#analyticsBoardGuess {
+  padding-left: 10px;
+  display: none;
+}
+
 .analytics_container {
   width: 400px;
   position: relative;
