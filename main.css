@@ -8,24 +8,33 @@
   height: 90%;
 }
 
+/* For WebKit browsers (Chrome, Safari, etc.) */
+::-webkit-scrollbar {
+  width: 8px; /* Set the width of the scrollbar */
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #888; /* Color of the thumb */
+  border-radius: 4px; /* Rounded corners of the thumb */
+}
+
+::-webkit-scrollbar-track {
+  background-color: #f1f1f1; /* Color of the track */
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: #555; /* Hover color of the thumb */
+}
+
+::-webkit-scrollbar-corner {
+  background-color: transparent; /* Color of the corner where horizontal and vertical scrollbars meet */
+}
+
 body.dark-theme {
   background: linear-gradient(-90deg, #3f3f3f, #000000, #3f3f3f);
-	background-size: 400% 400%;
 	animation: gradient 15s ease infinite;
 	height: 100vh;
   color: #ffffff;
-}
-
-@keyframes gradient {
-	0% {
-		background-position: 0% 50%;
-	}
-	50% {
-		background-position: 100% 50%;
-	}
-	100% {
-		background-position: 0% 50%;
-	}
 }
 
 #themeToggleButton {
@@ -74,6 +83,7 @@ button {
 
 .row.vertical-divider {
   overflow: hidden;
+  padding-top: 30px;
 }
 .row.vertical-divider > div[class^="col-"] {
   padding-bottom: 100px;
@@ -475,7 +485,7 @@ box-shadow: none;}
   background-color: #fff8dc;
 }
 
-@media only screen and (max-width: 922px) {
+@media only screen and (max-width: 1151px) {
   .vertical-divider {
     flex-direction: column;
   }
@@ -484,13 +494,21 @@ box-shadow: none;}
     border-left: none;
   }
 
+  .row.vertical-divider > div[class^="col-"] {
+    border-left: none;
+  }
+
   .col-3,
-  .col-5,
-  .col-3 {
+  .col-5 {
     width: 95%!important;
     margin: 0!important;
     padding: 0!important;
     margin-top: 10px!important;
+  }
+
+  .analytics_container {
+    margin-left: auto!important;
+    margin-right: auto!important;
   }
 
   b {
@@ -498,11 +516,25 @@ box-shadow: none;}
   }
 
   .audio {
-    margin-top: 20px;
+    margin-top: 40px;
   }
 
-  #themeToggleButton {
-    margin-top: 20px;
+ #themeToggleButton {
+    margin-top: 40px;
+  }
+}
+
+@media (max-width: 640px) {
+  .mx-4 {
+      margin-left: 0.5rem !important;
+  }
+}
+
+@media (max-width: 401px) {
+  .container {
+    padding-left: 0!important;
+    padding-right: 0!important;
+    
   }
 }
 
