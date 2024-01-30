@@ -399,5 +399,20 @@
     </div>
 
     <script src="main.js"></script>
+    <script>
+      var url = "http://127.0.0.1:5500/";
+
+      urlExists(url);
+
+      function urlExists(url){
+        var http = new XMLHttpRequest;
+
+        http.open("HEAD", url, false);
+
+        http.send();
+
+        console.log(http.status);
+      }
+    </script>
   </body>
 </html>

@@ -715,7 +715,7 @@ const checkOnlineStatus = () => {
     }, 15000);
 
     try {
-      const online = await fetch("/1pixel.png");
+      const online = await fetch("index.html");
       clearTimeout(timer);
       if (!resolved) {
         resolve(online.status >= 200 && online.status < 300); // either true or false
@@ -737,7 +737,6 @@ const checkOnlineStatus = () => {
   }, 3000);
 })()
 
-// forgot to include async load event listener in the video! 
 window.addEventListener("load", async (event) => {
   const statusDisplay = document.getElementById("status");
   statusDisplay.textContent = (await checkOnlineStatus())
@@ -745,6 +744,7 @@ window.addEventListener("load", async (event) => {
     : "OFFline";
 });
 
+//Dark-light mode
 document.addEventListener("DOMContentLoaded", function () {
   const themeToggleButton = document.getElementById("themeToggleButton");
   

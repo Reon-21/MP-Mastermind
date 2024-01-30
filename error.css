@@ -1,0 +1,17 @@
+.container{
+    margin-top: 10px;
+    height: 500px;
+    width: 50%;
+    
+}
+
+.gif{
+    height: 300px;
+    margin-left: 395px;
+    margin-top: 20px;
+}
+
+.text{
+    color: black;
+    text-align: center;
+}
