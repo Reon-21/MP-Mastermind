@@ -34,6 +34,22 @@
     <title>JS Mastermind Game</title>
   </head>
   <body class="body">
+    <div class="modal" tabindex="-1" id="myModal">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Greetings player!</h5>
+          </div>
+          <div class="modal-body">
+            <p>Welcome to the Mastermind Game. It is simple to win. Just correctly guess the colour coded sequence!!!</p>
+            <img id="metalGear" src="https://media1.tenor.com/m/dzoYWrZ74ygAAAAd/mgrr-metal-gear-rising-revengeance-armstrong-raiden-handshake.gif">
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
     <div class="audio">
       <button id="buttonMusic" type="button" onclick="toggleMute();">
         <i id="musicIcon" class="fas fa-volume-up"></i>
@@ -74,11 +90,11 @@
         <p>Insert your guess into the empty sockets</p>
         <p>Hints are provided on the right side in black and white pegs</p>
         <p>
-          Black pegs corresponds to one peg form your guess is both right color
+          Black pegs corresponds to one peg from your guess is both right color
           and right position
         </p>
         <p>
-          White pegs corresponds to one peg form your guess is the right color
+          White pegs corresponds to one peg from your guess is the right color
           but wrong position
         </p>
         <p>
@@ -400,7 +416,7 @@
 
     <script src="main.js"></script>
     <script>
-      var url = "http://127.0.0.1:5500/";
+      var url = "http://127.0.0.1:5500/index.html";
 
       urlExists(url);
 
@@ -414,5 +430,10 @@
         console.log(http.status);
       }
     </script>
+    <script type="text/javascript">
+      $(window).on('load', function() {
+          $('#myModal').modal('show');
+      });
+  </script>
   </body>
 </html>

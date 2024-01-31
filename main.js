@@ -493,7 +493,8 @@
 
           const guess_row_colour = document.getElementsByClassName(colour)
           if (guess_row_colour[i].innerHTML != "X"){
-            guess_row_colour[i].innerHTML = "black"
+            guess_row_colour[i].innerHTML = "<span></span>"
+            guess_row_colour[i].style.backgroundColor = "gray"
           }
 
         } else if (result.includes("almost")){
@@ -510,6 +511,7 @@
           const guess_row_colour = document.getElementsByClassName(colour)
           for (let i = 0; i < guess_row_colour.length; i++) {
             guess_row_colour[i].innerHTML = "X"
+            guess_row_colour[i].style.fontSize = "95px"
           }
         }
       }

@@ -659,3 +659,8 @@ body.single-toggle .drop:nth-child(10) {
   display: flex;
   margin: auto;
 }
+
+#metalGear{
+  width: 465px;
+}
+
