@@ -32,6 +32,7 @@ document.body.appendChild(alertElement);
     analyticsBoardGuess = document.getElementById('analyticsBoardGuess'),
     analyticsNavRadar = document.getElementById("analyticsNavRadar"),
     analyticsNavGuess = document.getElementById("analyticsNavGuess"),
+    analyticsBoardExplaination = document.getElementById("analyticsBoardExplaination"),
 
     // stores data of user guesses and peg results
     analytics_data = {"guesses":[],"results":[]},
@@ -439,9 +440,33 @@ recognition.onend = function () {
     if (analytics_board_type == "guess") {
       analyticsBoardGuess.style.display = "Block";
       analyticsBoardRadar.style.display = "None";
+      analyticsBoardExplaination.innerHTML = "\
+      <button class=\"button\">Legend</button>\
+          <p>Each square in the guess board represent the possible positions of each colour, with there being 3 possible states for each position</p>\
+          <div class=\"analytics_legend\">\
+            <div class=\"analytics_container\">\
+              <div class=\"analyticsBoardGuess_pegtut\" style=\"font-size: 30px;\">?</div>\
+              <p>- Position is still unknown</p>\
+            </div>\
+            <div class=\"analytics_container\">\
+              <div class=\"analyticsBoardGuess_pegtut\" style=\"font-size: 90px;\">X</div>\
+              <p>- Position has been eliminated</p>\
+            </div>\
+            <div class=\"analytics_container\">\
+              <div class=\"analyticsBoardGuess_pegtut\" style=\"background-color: gray;\"><span></span></div>\
+              <p>- Position can possibly be in pattern</p>\
+            </div>\
+          </div>"
     } else if (analytics_board_type == "radar") {
       analyticsBoardGuess.style.display = "None"
       analyticsBoardRadar.style.display = "Block"
+      analyticsBoardExplaination.innerHTML = "\
+      <button class=\"button\">Legend</button>\
+      <div class=\"analytics_legend\">\
+        <p>The values of the points correspond to the likely percentage that a colour is in the final pattern.</p>\
+        <p>e.g. If the Orange axis has a value of 100, it means it will appear within the pattern.</p>\
+        <p>Conversely, if the Green Axis has a value of 0, it would not appear within the pattern.</p>\
+      </div>"
     }
   }
 
@@ -473,6 +498,8 @@ recognition.onend = function () {
 
       const guess_row_pegs = document.getElementsByClassName("analyticsBoardGuess_peg")
       for (let i = 0; i < guess_row_pegs.length; i++) {
+        guess_row_pegs[i].style.fontSize = "30px"
+        guess_row_pegs[i].style.backgroundColor = "transparent"
         guess_row_pegs[i].innerHTML = "?"
       };
 
@@ -503,12 +530,10 @@ recognition.onend = function () {
           } else { // if mulitple colours in guess
             for (let j = 0; j < chart_percentages.length; j++) {
               if (unique.includes(j+1)){ // select colour in guess, add 10% chance to it
-                console.log(chart_percentages[j])
                 if (chart_percentages[j] < 89 && chart_percentages[j] > 10){ // prevents colour from going above 90%
                   chart_percentages[j] += 10
                 }
               } else { // select colour in guess, minus 10% chance to it
-                console.log(chart_percentages[j])
                 if (chart_percentages[j] > 11 && chart_percentages[j] < 90){ // prevents colour from going under 10%
                   chart_percentages[j] -= 10
                 }
@@ -522,12 +547,10 @@ recognition.onend = function () {
             } else { // if mulitple colours in guess
               for (let j = 0; j < chart_percentages.length; j++) {
                 if (unique.includes(j+1)){ // select colour in guess, add 10% chance to it
-                  console.log(chart_percentages[j])
                   if (chart_percentages[j] < 89 && chart_percentages[j] > 10){ // prevents colour from going above 90%
                     chart_percentages[j] += 10
                   }
                 } else { // select colour in guess, minus 10% chance to it
-                  console.log(chart_percentages[j])
                   if (chart_percentages[j] > 11 && chart_percentages[j] < 90){ // prevents colour from going under 10%
                     chart_percentages[j] -= 10
                   }
@@ -549,12 +572,13 @@ recognition.onend = function () {
       const chart_data = [{
         type: 'scatterpolar',
         r: chart_percentages,
-        theta: ['Orange','Purple','Red', 'Blue', 'Green', 'Yellow'],
+        theta: ['<b>Orange</b>','Purple','Red', 'Blue', 'Green', 'Yellow'],
         fill: 'toself',
         marker: {
           color:"gray"
         },
       }];
+      // add bolded letters to categories
       const chart_layout = {
         polar: {radialaxis: {visible: true, range: [0, 100]}},
         showlegend: false,
@@ -562,6 +586,10 @@ recognition.onend = function () {
         height: 400,
         plot_bgcolor: "rgba(0,0,0,0)",
         paper_bgcolor: "rgba(0,0,0,0)",
+        font:{
+          family: "Times New Roman",
+          size: 18,
+        }
       };
       Plotly.newPlot("analyticsBoardRadar", chart_data, chart_layout);
 
@@ -585,6 +613,7 @@ recognition.onend = function () {
 
           const guess_row_colour = document.getElementsByClassName(colour)
           guess_row_colour[i].innerHTML = "X"
+          guess_row_colour[i].style.fontSize = "90px"
 
         } else {
           // get analytics peg colour by 
@@ -593,7 +622,7 @@ recognition.onend = function () {
           const guess_row_colour = document.getElementsByClassName(colour)
           for (let i = 0; i < guess_row_colour.length; i++) {
             guess_row_colour[i].innerHTML = "X"
-            guess_row_colour[i].style.fontSize = "95px"
+            guess_row_colour[i].style.fontSize = "90px"
           }
         }
       }
