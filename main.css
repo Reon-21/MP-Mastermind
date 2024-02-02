@@ -360,13 +360,21 @@ box-shadow: none;}
 
 #analyticsBoardGuess {
   padding-left: 10px;
+  padding-top: 25px;
+  max-height: max-content;
   display: none;
 }
 
+#analyticsBoardExplaination {
+  border: 3px;
+  padding-left: 20px;
+  padding-top: 20px;
+}
+
 .analytics_container {
-  width: 400px;
+  width: 450px;
+  overflow: hidden;
   position: relative;
-  padding-top: 25px;
   
 }
 
@@ -378,7 +386,7 @@ box-shadow: none;}
   float: left;
 }
 
-.analyticsBoardGuess_peg{
+.analyticsBoardGuess_peg {
   border-style: solid;
   height: 70px;
   width: 70px;
@@ -388,6 +396,22 @@ box-shadow: none;}
   align-items: center;
   justify-content: center;
   float: left;
+}
+
+.analyticsBoardGuess_pegtut {
+  border-style: solid;
+  height: 70px;
+  width: 70px;
+  margin-right: 10px;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  float: left;
+}
+
+.analytics_legend {
+  padding-top: 10px;
 }
 
 #modalOverlay {
