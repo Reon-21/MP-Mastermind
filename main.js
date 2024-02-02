@@ -2,6 +2,23 @@
   "use strict";
   const addSound = new Audio("source/addGuess.mp3");
   const removeSound = new Audio("source/removeGuess1.mp3");
+  const recognition = new webkitSpeechRecognition() || new SpeechRecognition();
+  recognition.continuous = true;
+  recognition.lang = 'en-US';
+  let guessCount = 0; // Counter for the number of guesses
+  let alertTimeout; // Variable to store the timeout for the alert
+  // Create a custom alert element
+const alertElement = document.createElement('div');
+alertElement.style.position = 'fixed';
+alertElement.style.top = '0';
+alertElement.style.left = '0';
+alertElement.style.width = '100%';
+alertElement.style.backgroundColor = '#ff0000';
+alertElement.style.color = '#ffffff';
+alertElement.style.padding = '10px';
+alertElement.style.textAlign = 'center';
+alertElement.style.display = 'none';
+document.body.appendChild(alertElement);
   var code = [], // Color sequence the player needs to guess
     guess = [], // Color sequence of player's guesses
     options = document.getElementsByClassName("option"), //The colored balls players can choose
@@ -29,6 +46,71 @@
       5: "green",
       6: "yellow",
     };
+
+    const speechButton = document.getElementById("speechButton");
+            if (speechButton) {
+                speechButton.addEventListener("click", startSpeechRecognition);
+            }
+
+
+  function startSpeechRecognition() {
+      recognition.start();
+  }  
+
+  recognition.onresult = function (event) {
+    const last = event.results.length - 1;
+    const colorSpoken = event.results[last][0].transcript.toLowerCase().trim();
+
+    // Map spoken color to its corresponding index
+    const colorIndex = {
+        'orange': 1,
+        'purple': 2,
+        'red': 3,
+        'blue': 4,
+        'green': 5,
+        'yellow': 6,
+        'tangerine': 1, // Additional synonym
+        'magenta': 2,
+        'crimson': 3, 
+        'navy': 4,
+        'emerald': 5,
+        'gold': 6
+    }[colorSpoken];
+
+    // If a valid color is recognized, add it to the ongoing guess
+    if (colorIndex && colorIndex >= 1 && colorIndex <= 6) {
+      const colorButton = options[colorIndex - 1];
+      if (colorButton) {
+          insertGuess.call(colorButton);
+          guessCount++;
+          // Check if the user has made four guesses, and stop recognition if true
+          if (guessCount === 4) {
+              recognition.stop();
+          }
+      }
+  } else {
+      console.log('Invalid color spoken.');
+      // Display error message with custom alert
+      alertElement.textContent = 'Invalid color spoken. Please try a synonym.';
+      alertElement.style.display = 'block';
+
+      // Set timeout to remove the alert after 5 seconds
+      alertTimeout = setTimeout(() => {
+        alertElement.style.display = 'none';
+    }, 5000);
+  }
+};
+
+// Event handler for speech recognition end
+recognition.onend = function () {
+  // Reset guess count for the next round
+  guessCount = 0;
+
+  if (alertTimeout) {
+    clearTimeout(alertTimeout);
+    alertTimeout = null;
+}
+};
 
   function gameSetup() {
     //Generates the sequence player has to guess

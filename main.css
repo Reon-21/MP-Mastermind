@@ -37,11 +37,23 @@ body.dark-theme {
   color: #ffffff;
 }
 
+#speechButton {
+  cursor: pointer;
+  border-radius: 15px;
+  box-shadow: 4px 4px 4px #000;
+  border: #000;
+  display: block;
+  margin: auto;
+}
+
 #themeToggleButton {
+  border: none;
+  border-radius: 5px;
   position: absolute;
     top: 10px;
     right: 10px;
 }
+
 
 #backgroundMusic {
   display: none;
@@ -522,6 +534,10 @@ box-shadow: none;}
  #themeToggleButton {
     margin-top: 40px;
   }
+
+  #speechButton {
+    margin-bottom: 10px;
+  }
 }
 
 @media (max-width: 640px) {
@@ -558,11 +574,13 @@ box-shadow: none;}
 }
 
 .content{
-  background-image: url(https://media.istockphoto.com/id/484096068/photo/wooden-texture-background.webp?b=1&s=170667a&w=0&k=20&c=RWLEm-1NkqPzEgrX0zRid7WHtclBQBmI4RQZlouc02g=);
+  background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url(https://media.istockphoto.com/id/484096068/photo/wooden-texture-background.webp?b=1&s=170667a&w=0&k=20&c=RWLEm-1NkqPzEgrX0zRid7WHtclBQBmI4RQZlouc02g=);
+  background-size: cover; 
   color: #fff8dc;
   box-shadow: 8px 8px 5px gray;
   padding-bottom: 10px;
 }
+
 
 .rain {
   position: absolute;
@@ -693,6 +711,12 @@ body.single-toggle .drop:nth-child(10) {
 }
 
 #metalGear{
-  width: 465px;
+  max-width: 465px;
+  height: auto;
+}
+@media only screen and (max-width: 499px) {
+  #metalGear {
+    width: 100%; /* Set the image width to 100% on screens with a width of 499px or less */
+  }
 }
 
