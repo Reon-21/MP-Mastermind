@@ -483,18 +483,19 @@ recognition.onend = function () {
       const chart_data = [{
         type: 'scatterpolar',
         r: [0,0,0,0,0,0],
-        theta: ['Orange','Purple','Red', 'Blue', 'Green', 'Yellow'],
+        theta: ['<b>Orange</b>','<b>Purple</b>','<b>Red</b>', '<b>Blue</b>', '<b>Green</b>', '<b>Yellow</b>'],
         fill: 'toself'
       }];
       const chart_layout = {
         polar: {radialaxis: {visible: true, range: [0, 100]}},
         showlegend: false,
-        width: 400,
+        width: 380,
         height: 400,
         plot_bgcolor: "rgba(0,0,0,0)",
         paper_bgcolor: "rgba(0,0,0,0)"
       };
-      Plotly.newPlot("analyticsBoardRadar", chart_data, chart_layout);
+      const config = {responsive: true}
+      Plotly.newPlot("analyticsBoardRadar", chart_data, chart_layout, config);
 
       const guess_row_pegs = document.getElementsByClassName("analyticsBoardGuess_peg")
       for (let i = 0; i < guess_row_pegs.length; i++) {
@@ -572,7 +573,7 @@ recognition.onend = function () {
       const chart_data = [{
         type: 'scatterpolar',
         r: chart_percentages,
-        theta: ['<b>Orange</b>','Purple','Red', 'Blue', 'Green', 'Yellow'],
+        theta: ['<b>Orange</b>','<b>Purple</b>','<b>Red</b>', '<b>Blue</b>', '<b>Green</b>', '<b>Yellow</b>'],
         fill: 'toself',
         marker: {
           color:"gray"
@@ -582,16 +583,13 @@ recognition.onend = function () {
       const chart_layout = {
         polar: {radialaxis: {visible: true, range: [0, 100]}},
         showlegend: false,
-        width: 400,
+        width: 380,
         height: 400,
         plot_bgcolor: "rgba(0,0,0,0)",
         paper_bgcolor: "rgba(0,0,0,0)",
-        font:{
-          family: "Times New Roman",
-          size: 18,
-        }
       };
-      Plotly.newPlot("analyticsBoardRadar", chart_data, chart_layout);
+      const config = {responsive: true}
+      Plotly.newPlot("analyticsBoardRadar", chart_data, chart_layout, config);
 
       // setting guess chart
       // loops through the latest guess made within the analytics data
@@ -612,6 +610,7 @@ recognition.onend = function () {
           const colour = get_colour(guess[i])
 
           const guess_row_colour = document.getElementsByClassName(colour)
+          guess_row_colour[i].style.backgroundColor = "transparent"
           guess_row_colour[i].innerHTML = "X"
           guess_row_colour[i].style.fontSize = "90px"
 
@@ -621,6 +620,7 @@ recognition.onend = function () {
 
           const guess_row_colour = document.getElementsByClassName(colour)
           for (let i = 0; i < guess_row_colour.length; i++) {
+            guess_row_colour[i].style.backgroundColor = "transparent"
             guess_row_colour[i].innerHTML = "X"
             guess_row_colour[i].style.fontSize = "90px"
           }

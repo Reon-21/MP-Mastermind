@@ -379,12 +379,12 @@ box-shadow: none;}
 
 #analyticsBoardExplaination {
   border: 3px;
-  padding-left: 20px;
-  padding-top: 20px;
+  padding: 20px;
+  max-width: 100%;
 }
 
 .analytics_container {
-  width: 450px;
+  max-width: 100%;
   overflow: hidden;
   position: relative;
   
@@ -400,8 +400,8 @@ box-shadow: none;}
 
 .analyticsBoardGuess_peg {
   border-style: solid;
-  height: 70px;
-  width: 70px;
+  height: 60px;
+  width: 60px;
   margin-right: 10px;
   margin-bottom: 10px;
   display: flex;
