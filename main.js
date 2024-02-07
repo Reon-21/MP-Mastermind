@@ -356,7 +356,8 @@ recognition.onend = function () {
     document.getElementsByTagName("body")[0].className = state;
     // Set the class name of the modal overlay to the specified state
     modalOverlay.className = state;
-
+    // Variable to store whether the background music was playing or paused
+    var isBackgroundMusicPlaying = !myaudio.paused;
     // Modal message based on the game state
     if (state === "won") {
       myaudio.pause();
@@ -386,12 +387,16 @@ recognition.onend = function () {
       audioWon.play();
       document.getElementById("restartGame1").onclick = function () {
         audioWon.pause();
-        resumeAudio(myaudio);
+        if (isBackgroundMusicPlaying) {
+          resumeAudio(myaudio);
+        }
         newGame();
       };
       document.getElementById("hideModal").onclick = function () {
         audioWon.pause();
-        resumeAudio(myaudio);
+        if (isBackgroundMusicPlaying) {
+          resumeAudio(myaudio);
+        }
         hideModal();
       };
       var element1 = document.getElementsByClassName('back-row-toggle splat-toggle');
@@ -415,7 +420,9 @@ recognition.onend = function () {
         // Pause the audio when the restartGame1 button is clicked
         let vid = document.getElementById("myAudio");
         vid.pause();
-        resumeAudio(myaudio);
+        if (isBackgroundMusicPlaying) {
+          resumeAudio(myaudio);
+        }
         // Call the newGame function or perform any other actions needed for restarting the game
         newGame();
       };
@@ -423,7 +430,9 @@ recognition.onend = function () {
         // Pause the audio when the restartGame1 button is clicked
         let vid = document.getElementById("myAudio");
         vid.pause();
-        resumeAudio(myaudio);
+        if (isBackgroundMusicPlaying) {
+          resumeAudio(myaudio);
+        }
         // Call the newGame function or perform any other actions needed for restarting the game
         hideModal();
       };
