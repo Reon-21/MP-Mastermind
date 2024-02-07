@@ -79,7 +79,7 @@ button {
   font-weight: 800;
   padding: 5px 10px;
   color: #fff8dc;
-  background-image: url(https://media.istockphoto.com/id/484096068/photo/wooden-texture-background.webp?b=1&s=170667a&w=0&k=20&c=RWLEm-1NkqPzEgrX0zRid7WHtclBQBmI4RQZlouc02g=);
+  background-image: url(https://www.myfreetextures.com/wp-content/uploads/2014/10/seamless-wood-background-1-900x900.jpg);
   vertical-align: middle;
   cursor: pointer;
 
@@ -95,7 +95,6 @@ button {
 
 .row.vertical-divider {
   overflow: hidden;
-  padding-top: 30px;
 }
 .row.vertical-divider > div[class^="col-"] {
   padding-bottom: 100px;
@@ -147,7 +146,7 @@ h1{
 
 #guesses {
   display: inline-block;
-  background-image: url(https://media.istockphoto.com/id/484096068/photo/wooden-texture-background.webp?b=1&s=170667a&w=0&k=20&c=RWLEm-1NkqPzEgrX0zRid7WHtclBQBmI4RQZlouc02g=);
+  background-image: url(https://www.myfreetextures.com/wp-content/uploads/2014/10/seamless-wood-background-1-900x900.jpg);
   border-radius: 20px 20px 0px 0px;
   padding: 15px 40px;
   font-size: 0;
@@ -200,7 +199,7 @@ h1{
   vertical-align: bottom;
   display: inline-block;
   padding: 15px 20px;
-  background-image: url(https://media.istockphoto.com/id/484096068/photo/wooden-texture-background.webp?b=1&s=170667a&w=0&k=20&c=RWLEm-1NkqPzEgrX0zRid7WHtclBQBmI4RQZlouc02g=);
+  background-image: url(https://www.myfreetextures.com/wp-content/uploads/2014/10/seamless-wood-background-1-900x900.jpg);
   border-radius: 0px 20px 0px 0px;
   font-size: 0;
   margin-left: 0px;
@@ -248,7 +247,7 @@ box-shadow: none;}
   text-align: center;
   font-size: 0;
   box-shadow: 8px 8px 5px gray;
-  background-image: url(https://media.istockphoto.com/id/484096068/photo/wooden-texture-background.webp?b=1&s=170667a&w=0&k=20&c=RWLEm-1NkqPzEgrX0zRid7WHtclBQBmI4RQZlouc02g=);
+  background-image: url(https://www.myfreetextures.com/wp-content/uploads/2014/10/seamless-wood-background-1-900x900.jpg);
 }
 
 #options button + button {
@@ -259,7 +258,7 @@ box-shadow: none;}
 
 #delete {
   font-size: 21px;
-  background-image: url(https://media.istockphoto.com/id/484096068/photo/wooden-texture-background.webp?b=1&s=170667a&w=0&k=20&c=RWLEm-1NkqPzEgrX0zRid7WHtclBQBmI4RQZlouc02g=);
+  background-image: url(https://www.myfreetextures.com/wp-content/uploads/2014/10/seamless-wood-background-1-900x900.jpg);
   cursor: pointer;
   border-radius: 15px;
   box-shadow: 4px 4px 4px #000;
@@ -272,7 +271,7 @@ box-shadow: none;}
 
 #restartGame{
   font-size: 21px;
-  background-image: url(https://media.istockphoto.com/id/484096068/photo/wooden-texture-background.webp?b=1&s=170667a&w=0&k=20&c=RWLEm-1NkqPzEgrX0zRid7WHtclBQBmI4RQZlouc02g=);
+  background-image: url(https://www.myfreetextures.com/wp-content/uploads/2014/10/seamless-wood-background-1-900x900.jpg);
   cursor: pointer;
   border-radius: 15px;
   box-shadow: 4px 4px 4px #000;
@@ -299,7 +298,7 @@ box-shadow: none;}
   height: 40px;
   width: 40px;
   margin: 0;
-  background: radial-gradient(circle at 13px 18px, #fe4a49, #000);
+  background: radial-gradient(circle at 13px 18px, #ff57d5, #000);
   box-shadow: none;
 }
 
@@ -335,7 +334,7 @@ box-shadow: none;}
   height: 40px;
   width: 40px;
   margin: 0;
-  background: radial-gradient(circle at 13px 18px, #fb5607, #000);
+  background: radial-gradient(circle at 13px 18px, #ff754b, #000);
   box-shadow: none;
 }
 
@@ -598,7 +597,7 @@ box-shadow: none;}
 }
 
 .content{
-  background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url(https://media.istockphoto.com/id/484096068/photo/wooden-texture-background.webp?b=1&s=170667a&w=0&k=20&c=RWLEm-1NkqPzEgrX0zRid7WHtclBQBmI4RQZlouc02g=);
+  background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url(https://www.myfreetextures.com/wp-content/uploads/2014/10/seamless-wood-background-1-900x900.jpg);
   background-size: cover; 
   color: #fff8dc;
   box-shadow: 8px 8px 5px gray;

@@ -66,13 +66,13 @@ document.body.appendChild(alertElement);
     const colorIndex = {
         'orange': 1,
         'purple': 2,
-        'red': 3,
+        'pink': 3,
         'blue': 4,
         'green': 5,
         'yellow': 6,
         'tangerine': 1, // Additional synonym
         'magenta': 2,
-        'crimson': 3, 
+        'violet': 3, 
         'navy': 4,
         'emerald': 5,
         'gold': 6
@@ -483,7 +483,7 @@ recognition.onend = function () {
       const chart_data = [{
         type: 'scatterpolar',
         r: [0,0,0,0,0,0],
-        theta: ['<b>Orange</b>','<b>Purple</b>','<b>Red</b>', '<b>Blue</b>', '<b>Green</b>', '<b>Yellow</b>'],
+        theta: ['<b>Orange</b>','<b>Purple</b>','<b>Pink</b>', '<b>Blue</b>', '<b>Green</b>', '<b>Yellow</b>'],
         fill: 'toself'
       }];
       const chart_layout = {
@@ -573,7 +573,7 @@ recognition.onend = function () {
       const chart_data = [{
         type: 'scatterpolar',
         r: chart_percentages,
-        theta: ['<b>Orange</b>','<b>Purple</b>','<b>Red</b>', '<b>Blue</b>', '<b>Green</b>', '<b>Yellow</b>'],
+        theta: ['<b>Orange</b>','<b>Purple</b>','<b>Pink</b>', '<b>Blue</b>', '<b>Green</b>', '<b>Yellow</b>'],
         fill: 'toself',
         marker: {
           color:"gray"
