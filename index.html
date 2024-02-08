@@ -70,7 +70,6 @@
         step="1"
         value="10"
       />
-      <iframe src="source/Calm-and-Peaceful(chosic.com).mp3" allow="autoplay" id="audioID" style="display: none"></iframe>
       <audio id="audioID" autoplay loop>
         <source
           src="source/Calm-and-Peaceful(chosic.com).mp3"
@@ -451,6 +450,11 @@
       $(window).on('load', function() {
           $('#myModal').modal('show');
       });
+  </script>
+  <script>
+    window.onload = function(){
+      document.getElementById("audioID").play();
+    }
   </script>
   </body>
 </html>
